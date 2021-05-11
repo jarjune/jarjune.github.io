@@ -27,26 +27,26 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="java内存区域运行时数据区域 程序计数器  程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里（仅是概念模型，各种虚拟机可能会通过一些更高效的方式去实现），字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计">
 <meta property="og:locale">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5Cimage-20210212115328670.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E5%8F%AF%E8%BE%BE%E6%80%A7%E7%AE%97%E6%B3%95.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5CSerial%E6%94%B6%E9%9B%86%E5%99%A8.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5CParNew%E6%94%B6%E9%9B%86%E5%99%A8.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5CParallel%E6%94%B6%E9%9B%86%E5%99%A8.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5CCMS%E6%94%B6%E9%9B%86%E5%99%A8.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5CG1%E6%94%B6%E9%9B%86%E5%99%A8.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B01.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5C%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B02.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5Cjava%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/image-20210212115328670.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E5%8F%AF%E8%BE%BE%E6%80%A7%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/Serial%E6%94%B6%E9%9B%86%E5%99%A8.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/ParNew%E6%94%B6%E9%9B%86%E5%99%A8.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/Parallel%E6%94%B6%E9%9B%86%E5%99%A8.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/CMS%E6%94%B6%E9%9B%86%E5%99%A8.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/G1%E6%94%B6%E9%9B%86%E5%99%A8.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B01.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B02.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png">
 <meta property="article:published_time" content="2021-02-12T03:51:11.000Z">
-<meta property="article:modified_time" content="2021-03-02T13:02:48.121Z">
+<meta property="article:modified_time" content="2021-05-11T14:57:00.263Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/%5Cimages%5Cimage-20210212115328670.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/images/image-20210212115328670.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2021/02/12/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E6%B7%B1%E5%85%A5java%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8D%E8%A6%81%E5%86%85%E5%AE%B9/">
 
@@ -101,7 +101,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -135,7 +135,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -187,16 +187,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Created: 2021-02-12 11:51:11" itemprop="dateCreated datePublished" datetime="2021-02-12T11:51:11+08:00">2021-02-12</time>
+              <time title="أُنشأ: 2021-02-12 11:51:11" itemprop="dateCreated datePublished" datetime="2021-02-12T11:51:11+08:00">2021-02-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-02 21:02:48" itemprop="dateModified" datetime="2021-03-02T21:02:48+08:00">2021-03-02</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
               </span>
 
           
@@ -210,7 +210,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="java内存区域"><a href="#java内存区域" class="headerlink" title="java内存区域"></a>java内存区域</h1><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="%5Cimages%5Cimage-20210212115328670.png" alt="image-20210212115328670"></p>
+        <h1 id="java内存区域"><a href="#java内存区域" class="headerlink" title="java内存区域"></a>java内存区域</h1><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="/images/image-20210212115328670.png" alt="image-20210212115328670"></p>
 <h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><blockquote>
 <p> 程序计数器（Program Counter Register）是一块较小的内存空间，它可以看作是当前线<br>程所执行的字节码的行号指示器。在虚拟机的概念模型里（仅是概念模型，各种虚拟机可能<br>会通过一些更高效的方式去实现），字节码解释器工作时就是通过改变这个计数器的值来选<br>取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需<br>要依赖这个计数器来完成。</p>
 <p>由于Java虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，<br>在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线<br>程中的指令。因此，为了线程切换后能恢复到正确的执行位置，<strong>每条线程都需要有一个独立<br>的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存区域为“线程私<br>有”的内存。</strong></p>
@@ -237,7 +237,7 @@
 <h3 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h3><blockquote>
 <p>在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域：对象头（Header）、<br>实例数据（Instance Data）和对齐填充（Padding）。<br>HotSpot虚拟机的对象头包括两部分信息，第一部分用于存储对象自身的运行时数据，<br>如哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时<br>间戳等，这部分数据的长度在32位和64位的虚拟机（未开启压缩指针）中分别为32bit和<br>64bit，官方称它为“Mark Word”。对象需要存储的运行时数据很多，其实已经超出了32位、<br>64位Bitmap结构所能记录的限度，但是对象头信息是与对象自身定义的数据无关的额外存储<br>成本，考虑到虚拟机的空间效率，Mark Word被设计成一个非固定的数据结构以便在极小的<br>空间内存储尽量多的信息，它会根据对象的状态复用自己的存储空间。例如，在32位的<br>HotSpot虚拟机中，如果对象处于未被锁定的状态下，那么Mark Word的32bit空间中的25bit用<br>于存储对象哈希码，4bit用于存储对象分代年龄，2bit用于存储锁标志位，1bit固定为0，而在<br>其他状态（轻量级锁定、重量级锁定、GC标记、可偏向）下对象的存储内容见表2-1。</p>
 </blockquote>
-<p><img src="%5Cimages%5C%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png" alt="image-20210222132534618"></p>
+<p><img src="/images/%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80.png" alt="image-20210222132534618"></p>
 <blockquote>
 <p>对齐填充并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。<br>由于HotSpot VM的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换句话说，<br>就是对象的大小必须是8字节的整数倍。而对象头部分正好是8字节的倍数（1倍或者2倍），<br>因此，当对象实例数据部分没有对齐时，就需要通过对齐填充来补全。</p>
 </blockquote>
@@ -247,7 +247,7 @@
 <h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><blockquote>
 <p>通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（Reference Chain），当一个对象到GC Roots没有任何引用链相连（用图论的话来说，就是从GC Roots到这个对象不可达）时，则证明此对象是不可用的。</p>
 </blockquote>
-<p><img src="%5Cimages%5C%E5%8F%AF%E8%BE%BE%E6%80%A7%E7%AE%97%E6%B3%95.png" alt="image-20210222133436053"></p>
+<p><img src="/images/%E5%8F%AF%E8%BE%BE%E6%80%A7%E7%AE%97%E6%B3%95.png" alt="image-20210222133436053"></p>
 <p>在Java语言中，可作为GC Roots的对象包括下面几种：</p>
 <ol>
 <li>虚拟机栈（栈帧中的本地变量表）中引用的对象。</li>
@@ -262,23 +262,23 @@
 <h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h3><blockquote>
 <p>最基础的收集算法是“标记-清除”（Mark-Sweep）算法，如同它的名字一样，算法分为“标记”和“清除”两个阶段：首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象，它的标记过程其实在前一节讲述对象标记判定时已经介绍过了。之所以说它是最基础的收集算法，是因为后续的收集算法都是基于这种思路并对其不足进行改进而得到的。它的主要不足有两个：一个是效率问题，标记和清除两个过程的效率都不高；另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</p>
 </blockquote>
-<p><img src="%5Cimages%5C%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95.png" alt="image-20210222134052798"></p>
+<p><img src="/images/%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95.png" alt="image-20210222134052798"></p>
 <h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><blockquote>
 <p>为了解决效率问题，一种称为“复制”（Copying）的收集算法出现了，它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。这样使得每次都是对整个半区进行内存回收，内存分配时也就不用考虑内存碎片等复杂情况，只要移动堆顶指针，按顺序分配内存即可，实现简单，运行高效。只是这种算法的代价是将内存缩小为了原来的一半，未免太高了一点。</p>
 </blockquote>
-<p><img src="%5Cimages%5C%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.png" alt="image-20210222134150989"></p>
+<p><img src="/images/%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95.png" alt="image-20210222134150989"></p>
 <h3 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h3><blockquote>
 <p>复制收集算法在对象存活率较高时就要进行较多的复制操作，效率将会变低。更关键的是，如果不想浪费50%的空间，就需要有额外的空间进行分配担保，以应对被使用的内存中所有对象都100%存活的极端情况，所以在老年代一般不能直接选用这种算法。根据老年代的特点，有人提出了另外一种“标记-整理”（Mark-Compact）算法，标记过程仍然与“标记-清除”算法一样，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存</p>
 </blockquote>
-<p><img src="%5Cimages%5C%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.png" alt="image-20210222134309114"></p>
+<p><img src="/images/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95.png" alt="image-20210222134309114"></p>
 <h3 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h3><blockquote>
 <p>根据对象存活周期的不同将内存划分为几块。一般是把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成收集。而老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用“标记—清理”或者“标记—整理”算法来进行回收。</p>
 </blockquote>
-<h2 id="垃圾收集器类型"><a href="#垃圾收集器类型" class="headerlink" title="垃圾收集器类型"></a>垃圾收集器类型</h2><p><img src="%5Cimages%5C%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222134656360"></p>
-<h3 id="Serial收集器-Serial-Old收集器"><a href="#Serial收集器-Serial-Old收集器" class="headerlink" title="Serial收集器/Serial Old收集器"></a>Serial收集器/Serial Old收集器</h3><p><img src="%5Cimages%5CSerial%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222134735412"></p>
-<h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><p><img src="%5Cimages%5CParNew%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222134919886"></p>
-<h3 id="Parallel-Scavenge收集器（复制算法）-Parallel-Old（标记整理算法）收集器"><a href="#Parallel-Scavenge收集器（复制算法）-Parallel-Old（标记整理算法）收集器" class="headerlink" title="Parallel Scavenge收集器（复制算法）/Parallel Old（标记整理算法）收集器"></a>Parallel Scavenge收集器（复制算法）/Parallel Old（标记整理算法）收集器</h3><p><img src="%5Cimages%5CParallel%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222135348192"></p>
-<h3 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h3><p><img src="%5Cimages%5CCMS%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222135904806"></p>
+<h2 id="垃圾收集器类型"><a href="#垃圾收集器类型" class="headerlink" title="垃圾收集器类型"></a>垃圾收集器类型</h2><p><img src="/images/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222134656360"></p>
+<h3 id="Serial收集器-Serial-Old收集器"><a href="#Serial收集器-Serial-Old收集器" class="headerlink" title="Serial收集器/Serial Old收集器"></a>Serial收集器/Serial Old收集器</h3><p><img src="/images/Serial%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222134735412"></p>
+<h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><p><img src="/images/ParNew%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222134919886"></p>
+<h3 id="Parallel-Scavenge收集器（复制算法）-Parallel-Old（标记整理算法）收集器"><a href="#Parallel-Scavenge收集器（复制算法）-Parallel-Old（标记整理算法）收集器" class="headerlink" title="Parallel Scavenge收集器（复制算法）/Parallel Old（标记整理算法）收集器"></a>Parallel Scavenge收集器（复制算法）/Parallel Old（标记整理算法）收集器</h3><p><img src="/images/Parallel%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222135348192"></p>
+<h3 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h3><p><img src="/images/CMS%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222135904806"></p>
 <ol>
 <li>初始标记（CMS initial mark）需要Stop The World</li>
 <li>并发标记（CMS concurrent mark）</li>
@@ -291,10 +291,10 @@
 <li>最终标记（Final Marking）</li>
 <li>筛选回收（Live Data Counting and Evacuation）</li>
 </ol>
-<p><img src="%5Cimages%5CG1%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222140117091"></p>
-<h3 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h3><p><img src="%5Cimages%5C%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B01.png" alt="image-20210222140336659"></p>
-<p><img src="%5Cimages%5C%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B02.png" alt="image-20210222140441293"></p>
-<h1 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h1><p><img src="%5Cimages%5Cjava%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt="image-20210222131359444"></p>
+<p><img src="/images/G1%E6%94%B6%E9%9B%86%E5%99%A8.png" alt="image-20210222140117091"></p>
+<h3 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h3><p><img src="/images/%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B01.png" alt="image-20210222140336659"></p>
+<p><img src="/images/%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B02.png" alt="image-20210222140441293"></p>
+<h1 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h1><p><img src="/images/java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png" alt="image-20210222131359444"></p>
 <h2 id="内存间交互操作"><a href="#内存间交互操作" class="headerlink" title="内存间交互操作"></a>内存间交互操作</h2><blockquote>
 <p>关于主内存与工作内存之间具体的交互协议，即一个变量如何从主内存拷贝到工作内<br>存、如何从工作内存同步回主内存之类的实现细节，Java内存模型中定义了以下8种操作来<br>完成，虚拟机实现时必须保证下面提及的每一种操作都是原子的、不可再分的（对于double<br>和long类型的变量来说，load、store、read和write操作在某些平台上允许有例外</p>
 </blockquote>
@@ -400,10 +400,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          عام
         </li>
       </ul>
 
@@ -424,7 +424,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
   </nav>
@@ -457,7 +457,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         

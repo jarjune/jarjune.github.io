@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="synchronized的使用方式方法实例方法（锁实例对象）1public synchronized void method1() &amp;#123;&amp;#125;  静态方法（锁类对象）1public static synchronized void method2() &amp;#123;&amp;#125;  代码块实例对象（锁实例对象）1234public void method3() &amp;#123;    syn">
 <meta property="og:locale">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/18/synchronized%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/%5Cimages%5C%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%89%8D%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/18/synchronized%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/%5Cimages%5C%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%90%8E%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png">
-<meta property="og:image" content="https://blog.jarjune.com/2021/02/18/synchronized%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/%5Cimages%5C%E9%94%81%E5%8D%87%E7%BA%A7.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%89%8D%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%90%8E%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/%E9%94%81%E5%8D%87%E7%BA%A7.png">
 <meta property="article:published_time" content="2021-02-18T11:13:26.000Z">
-<meta property="article:modified_time" content="2021-03-02T13:02:48.035Z">
+<meta property="article:modified_time" content="2021-05-11T14:57:00.169Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/2021/02/18/synchronized%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/%5Cimages%5C%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%89%8D%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/images/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%89%8D%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2021/02/18/synchronized%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">
 
@@ -89,7 +89,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -123,7 +123,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -175,16 +175,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Created: 2021-02-18 19:13:26" itemprop="dateCreated datePublished" datetime="2021-02-18T19:13:26+08:00">2021-02-18</time>
+              <time title="أُنشأ: 2021-02-18 19:13:26" itemprop="dateCreated datePublished" datetime="2021-02-18T19:13:26+08:00">2021-02-18</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-02 21:02:48" itemprop="dateModified" datetime="2021-03-02T21:02:48+08:00">2021-03-02</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
               </span>
 
           
@@ -212,8 +212,8 @@
 <p>内部是采用<code>monitorenter</code>和<code>monitorexit</code>指令实现</p>
 <h1 id="锁升级"><a href="#锁升级" class="headerlink" title="锁升级"></a>锁升级</h1><p>在jdk1.6的时候，对<code>synchronized</code>进行了优化，引入了<code>偏向锁</code>、<code>轻量级锁</code>，因此，就有了4种状态，<code>无锁</code>、<code>偏向锁</code>、<code>轻量级锁</code>、<code>重量级锁</code>。</p>
 <p>每个对象头都有<code>Mark Word</code></p>
-<p>![img](\images\Mark Word存储结构.png)</p>
-<p>![img](\images\Mark Word存储结构1.png)</p>
+<p>![img](/images/Mark Word存储结构.png)</p>
+<p>![img](/images/Mark Word存储结构1.png)</p>
 <h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>适合一个线程访问<code>synchronized</code>的时候。</p>
 <h3 id="获取锁"><a href="#获取锁" class="headerlink" title="获取锁"></a>获取锁</h3><blockquote>
 <p>当一个线程访问同步块并获取锁时，会在<strong>对象头</strong>和<strong>栈帧中的锁记录</strong>里存储锁偏向的线程ID，以后该线程在进入和退出同步块时不需要进行CAS操作来加锁和解锁，只需简单地测试一下对象头的Mark Word里是否存储着指向当前线程的偏向锁。</p>
@@ -246,14 +246,14 @@
 <p>在JDK 1.6中引入了自适应的自旋锁。自适应意味着自旋的时间不再固定了，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也很有可能再次成功，进而它将允许自旋等待持续相对更长的时间，比如100个循环。另外，如果对于某个锁，自旋很少成功获得过，那在以后要获取这个锁时将可能省略掉自旋过程，以避免浪费处理器资源。有了自适应自旋，随着程序运行和性能监控信息的不断完善，虚拟机对程序锁的状况预测就会越来越准确，虚拟机就会变得越来越“聪明”了。</p>
 </blockquote>
 <p>如果有两条以上的线程争用同一个锁，那轻量级锁就不再有效，要膨胀为重量级锁，锁标志的状态值变为“10”，Mark Word中存储的就是指向重量级锁（互斥量）的指针，后面等待锁的线程也要进入阻塞状态。</p>
-<p><img src="%5Cimages%5C%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%89%8D%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png" alt="image-20210222173445814"></p>
-<p><img src="%5Cimages%5C%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%90%8E%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png" alt="image-20210222173557628"></p>
+<p><img src="/images/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%89%8D%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png" alt="image-20210222173445814"></p>
+<p><img src="/images/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81CAS%E6%93%8D%E4%BD%9C%E4%B9%8B%E5%90%8E%E5%A0%86%E6%A0%88%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8A%B6%E6%80%81.png" alt="image-20210222173557628"></p>
 <h3 id="撤销锁-1"><a href="#撤销锁-1" class="headerlink" title="撤销锁"></a>撤销锁</h3><p>通过cas操作将当前线程的锁记录替换回到对象头</p>
 <p>如果失败，表示当前锁存在竞争，就会升级为重量级锁</p>
 <h2 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h2><p>偏向锁、轻量级锁，不会阻塞，</p>
 <p>重量级锁（自旋）会阻塞。</p>
 <p>引用一张图</p>
-<p><img src="%5Cimages%5C%E9%94%81%E5%8D%87%E7%BA%A7.png" alt="image-20210223101222114"></p>
+<p><img src="/images/%E9%94%81%E5%8D%87%E7%BA%A7.png" alt="image-20210223101222114"></p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxNDA1NDI3OA==&mid=2247484986&idx=3&sn=565359c429b80736ffc16c46fb0d8591&chksm=f94a87d3ce3d0e">参考文章</a></p>
 
     </div>
@@ -326,10 +326,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          عام
         </li>
       </ul>
 
@@ -350,7 +350,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
   </nav>
@@ -383,7 +383,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         

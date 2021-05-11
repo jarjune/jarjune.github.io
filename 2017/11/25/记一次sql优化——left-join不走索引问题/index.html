@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="sql一执行就卡住，然后就…杀进程了看了一下表的大小第一反应就是加索引，然后explain看了一下走什么索引了，结果很尴尬，三个表，只走了一个索引…一群人在那纠结为毛走不了索引。无意间发现有个表的字符编码是gbk..另外两个都是utf8..网上查了一番，才发现当表的编码不一致的时候left join走不了索引…">
 <meta property="og:locale">
-<meta property="og:image" content="https://blog.jarjune.com/2017/11/25/%E8%AE%B0%E4%B8%80%E6%AC%A1sql%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94left-join%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E9%97%AE%E9%A2%98/%5Cimg%5C%E8%A1%A81.png">
-<meta property="og:image" content="https://blog.jarjune.com/2017/11/25/%E8%AE%B0%E4%B8%80%E6%AC%A1sql%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94left-join%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E9%97%AE%E9%A2%98/%5Cimg%5C%E8%A1%A82.png">
+<meta property="og:image" content="https://blog.jarjune.com/img/%E8%A1%A81.png">
+<meta property="og:image" content="https://blog.jarjune.com/img/%E8%A1%A82.png">
 <meta property="article:published_time" content="2017-11-25T03:56:54.000Z">
-<meta property="article:modified_time" content="2021-03-02T13:05:00.881Z">
+<meta property="article:modified_time" content="2021-05-11T14:56:38.366Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/2017/11/25/%E8%AE%B0%E4%B8%80%E6%AC%A1sql%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94left-join%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E9%97%AE%E9%A2%98/%5Cimg%5C%E8%A1%A81.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/img/%E8%A1%A81.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2017/11/25/%E8%AE%B0%E4%B8%80%E6%AC%A1sql%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94left-join%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E9%97%AE%E9%A2%98/">
 
@@ -88,7 +88,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -174,16 +174,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Created: 2017-11-25 11:56:54" itemprop="dateCreated datePublished" datetime="2017-11-25T11:56:54+08:00">2017-11-25</time>
+              <time title="أُنشأ: 2017-11-25 11:56:54" itemprop="dateCreated datePublished" datetime="2017-11-25T11:56:54+08:00">2017-11-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-05-11 22:56:38" itemprop="dateModified" datetime="2021-05-11T22:56:38+08:00">2021-05-11</time>
               </span>
 
           
@@ -197,7 +197,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="sql一执行就卡住，然后就…杀进程了"><a href="#sql一执行就卡住，然后就…杀进程了" class="headerlink" title="sql一执行就卡住，然后就…杀进程了"></a>sql一执行就卡住，然后就…杀进程了</h1><p>看了一下表的大小<img src="%5Cimg%5C%E8%A1%A81.png"><img src="%5Cimg%5C%E8%A1%A82.png"><br>第一反应就是加索引，然后explain看了一下走什么索引了，结果很尴尬，三个表，只走了一个索引…一群人在那纠结为毛走不了索引。<br>无意间发现有个表的字符编码是gbk..另外两个都是utf8..网上查了一番，才发现当表的<font color=red><strong>编码</strong></font>不一致的时候left join走不了索引…</p>
+        <h1 id="sql一执行就卡住，然后就…杀进程了"><a href="#sql一执行就卡住，然后就…杀进程了" class="headerlink" title="sql一执行就卡住，然后就…杀进程了"></a>sql一执行就卡住，然后就…杀进程了</h1><p>看了一下表的大小<img src="/img/%E8%A1%A81.png"><img src="/img/%E8%A1%A82.png"><br>第一反应就是加索引，然后explain看了一下走什么索引了，结果很尴尬，三个表，只走了一个索引…一群人在那纠结为毛走不了索引。<br>无意间发现有个表的字符编码是gbk..另外两个都是utf8..网上查了一番，才发现当表的<font color=red><strong>编码</strong></font>不一致的时候left join走不了索引…</p>
 
     </div>
 
@@ -269,10 +269,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          عام
         </li>
       </ul>
 
@@ -293,7 +293,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
   </nav>
@@ -326,7 +326,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         

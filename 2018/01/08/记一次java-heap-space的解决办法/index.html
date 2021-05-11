@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="java.lang.OutOfMemoryError: java heap space问题缘由：后台上传excel导入到数据库，数据量太大，导致报错。  解决方案：    用jdk自带的性能分析器（jconsole）查看了一下,当excel开始导入的时候，发现堆空间直接爆掉。   增加堆空间，在catalina.bat里加上set JAVA_OPTS&#x3D; -Xmx1024M -Xms512M -X">
 <meta property="og:locale">
-<meta property="og:image" content="https://blog.jarjune.com/2018/01/08/%E8%AE%B0%E4%B8%80%E6%AC%A1java-heap-space%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/%5Cimg%5Cheap_space1.png">
-<meta property="og:image" content="https://blog.jarjune.com/2018/01/08/%E8%AE%B0%E4%B8%80%E6%AC%A1java-heap-space%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/%5Cimg%5Cheap_space2.png">
+<meta property="og:image" content="https://blog.jarjune.com/img/heap_space1.png">
+<meta property="og:image" content="https://blog.jarjune.com/img/heap_space2.png">
 <meta property="article:published_time" content="2018-01-08T03:12:07.000Z">
-<meta property="article:modified_time" content="2021-03-02T13:05:00.843Z">
+<meta property="article:modified_time" content="2021-05-11T14:56:38.319Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/2018/01/08/%E8%AE%B0%E4%B8%80%E6%AC%A1java-heap-space%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/%5Cimg%5Cheap_space1.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/img/heap_space1.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2018/01/08/%E8%AE%B0%E4%B8%80%E6%AC%A1java-heap-space%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
 
@@ -88,7 +88,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -122,7 +122,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -174,16 +174,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Created: 2018-01-08 11:12:07" itemprop="dateCreated datePublished" datetime="2018-01-08T11:12:07+08:00">2018-01-08</time>
+              <time title="أُنشأ: 2018-01-08 11:12:07" itemprop="dateCreated datePublished" datetime="2018-01-08T11:12:07+08:00">2018-01-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-05-11 22:56:38" itemprop="dateModified" datetime="2021-05-11T22:56:38+08:00">2021-05-11</time>
               </span>
 
           
@@ -202,7 +202,7 @@
 </blockquote>
 <p>解决方案：  </p>
 <ol>
-<li>用jdk自带的性能分析器（jconsole）查看了一下,当excel开始导入的时候，发现堆空间直接爆掉。  <img src="%5Cimg%5Cheap_space1.png" alt="heap_space1"></li>
+<li>用jdk自带的性能分析器（jconsole）查看了一下,当excel开始导入的时候，发现堆空间直接爆掉。  <img src="/img/heap_space1.png" alt="heap_space1"></li>
 <li>增加堆空间，在catalina.bat里加上<code>set JAVA_OPTS= -Xmx1024M -Xms512M -XX:MaxPermSize=256m</code></li>
 </ol>
 <p>注：  </p>
@@ -226,7 +226,7 @@
 <td align="center">持久代(perm gen)初始值</td>
 </tr>
 </tbody></table>
-<p>重启tomcat之后<br><img src="%5Cimg%5Cheap_space2.png" alt="heap_space2"></p>
+<p>重启tomcat之后<br><img src="/img/heap_space2.png" alt="heap_space2"></p>
 
     </div>
 
@@ -298,10 +298,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          عام
         </li>
       </ul>
 
@@ -321,7 +321,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
   </nav>
@@ -354,7 +354,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         

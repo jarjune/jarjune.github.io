@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="缘由：AgentHub需要每个Agent打包一个前端页面的docker镜像  采取的是用nginx作为服务器，环境是centos7 制作镜像安装dockeryum -y install docker 启动dockersystemctl start docker 目录结构我是放在&#x2F;home&#x2F;jarjune&#x2F;目录下, 其中，  &#x2F;conf是放nginx配置文件 Dockerfile是制作镜像的文件">
 <meta property="og:locale">
-<meta property="og:image" content="https://blog.jarjune.com/2018/12/25/%E3%80%90docker%E5%B0%8F%E8%AE%B0%E3%80%91docker%E6%89%93%E5%8C%85nginx/%5Cimg%5Cdocker_nginx.png">
+<meta property="og:image" content="https://blog.jarjune.com/img/docker_nginx.png">
 <meta property="article:published_time" content="2018-12-25T05:12:08.000Z">
-<meta property="article:modified_time" content="2021-03-02T13:05:00.569Z">
+<meta property="article:modified_time" content="2021-05-11T14:56:38.116Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/2018/12/25/%E3%80%90docker%E5%B0%8F%E8%AE%B0%E3%80%91docker%E6%89%93%E5%8C%85nginx/%5Cimg%5Cdocker_nginx.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/img/docker_nginx.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2018/12/25/%E3%80%90docker%E5%B0%8F%E8%AE%B0%E3%80%91docker%E6%89%93%E5%8C%85nginx/">
 
@@ -87,7 +87,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -121,7 +121,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
   </li>
   </ul>
@@ -173,16 +173,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">نُشر في</span>
 
-              <time title="Created: 2018-12-25 13:12:08" itemprop="dateCreated datePublished" datetime="2018-12-25T13:12:08+08:00">2018-12-25</time>
+              <time title="أُنشأ: 2018-12-25 13:12:08" itemprop="dateCreated datePublished" datetime="2018-12-25T13:12:08+08:00">2018-12-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-05-11 22:56:38" itemprop="dateModified" datetime="2021-05-11T22:56:38+08:00">2021-05-11</time>
               </span>
 
           
@@ -202,7 +202,7 @@
 <p>采取的是用nginx作为服务器，环境是centos7</p>
 <h1 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h1><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p><code>yum -y install docker</code></p>
 <h2 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h2><p><code>systemctl start docker</code></p>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>我是放在<code>/home/jarjune/</code>目录下,<br><img src="%5Cimg%5Cdocker_nginx.png" alt="docker_nginx"></p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>我是放在<code>/home/jarjune/</code>目录下,<br><img src="/img/docker_nginx.png" alt="docker_nginx"></p>
 <p>其中，</p>
 <ul>
 <li><code>/conf</code>是放nginx配置文件</li>
@@ -293,10 +293,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          المحتويات
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          عام
         </li>
       </ul>
 
@@ -317,7 +317,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">المقالات</span>
         </a>
       </div>
   </nav>
@@ -350,7 +350,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
