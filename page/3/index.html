@@ -1,23 +1,1098 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.jarjune.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="java的前端">
+<meta property="og:type" content="website">
+<meta property="og:title" content="前端的java">
+<meta property="og:url" content="https://blog.jarjune.com/page/3/index.html">
+<meta property="og:site_name" content="前端的java">
+<meta property="og:description" content="java的前端">
+<meta property="og:locale">
+<meta property="article:author" content="jarjune">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.jarjune.com/page/3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>前端的java</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">前端的java</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2019/04/15/spring-cloud-demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/15/spring-cloud-demo/" class="post-title-link" itemprop="url">spring-cloud-demo</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-04-15 14:35:51 / Modified: 14:36:13" itemprop="dateCreated datePublished" datetime="2019-04-15T14:35:51+08:00">2019-04-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="spring-cloud-demo"><a href="#spring-cloud-demo" class="headerlink" title="spring-cloud-demo"></a>spring-cloud-demo</h1><p>gitee:<br><a target="_blank" rel="noopener" href="https://gitee.com/jarjune/spring-cloud-demo/stargazers"><img src="https://gitee.com/jarjune/spring-cloud-demo/badge/star.svg?theme=gray" alt="star"></a><br><a target="_blank" rel="noopener" href="https://gitee.com/jarjune/spring-cloud-demo/members"><img src="https://gitee.com/jarjune/spring-cloud-demo/badge/fork.svg?theme=gray" alt="fork"></a></p>
+<p>github:<br><a target="_blank" rel="noopener" href="https://github.com/jarjune/spring-cloud-demo/stargazers"><img src="https://img.shields.io/github/stars/jarjune/spring-cloud-demo.svg?style=social&label=Star" alt="star"></a><br><a target="_blank" rel="noopener" href="https://github.com/jarjune/spring-cloud-demo/network/members"><img src="https://img.shields.io/github/forks/jarjune/spring-cloud-demo.svg?style=social&label=Fork" alt="star"></a></p>
+<h2 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h2><ul>
+<li><code>spring-cloud-eureka-server-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-client-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-consumer-demo</code>【启动服务】</li>
+</ul>
+<h2 id="案例2"><a href="#案例2" class="headerlink" title="案例2"></a>案例2</h2><ul>
+<li><code>spring-cloud-eureka-server-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-client-feign-api-demo</code></li>
+<li><code>spring-cloud-eureka-client-feign-client-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-client-feign-consumer-demo</code>【启动服务】</li>
+</ul>
+<h2 id="案例3"><a href="#案例3" class="headerlink" title="案例3"></a>案例3</h2><ul>
+<li><code>spring-cloud-eureka-server-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-feign-api-demo</code></li>
+<li><code>spring-cloud-eureka-feign-client-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-feign-consumer-demo</code>【启动服务】</li>
+</ul>
+<h2 id="案例4"><a href="#案例4" class="headerlink" title="案例4"></a>案例4</h2><ul>
+<li><code>spring-cloud-config-server</code>【启动服务】</li>
+<li><code>spring-cloud-config-client</code>【启动服务】</li>
+</ul>
+<h2 id="案例5"><a href="#案例5" class="headerlink" title="案例5"></a>案例5</h2><ul>
+<li><code>spring-cloud-zuul</code>【启动服务】</li>
+</ul>
+<h2 id="案例6"><a href="#案例6" class="headerlink" title="案例6"></a>案例6</h2><ul>
+<li><code>spring-cloud-eureka-server-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-client-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-zuul</code>【启动服务】</li>
+</ul>
+<h2 id="案例7"><a href="#案例7" class="headerlink" title="案例7"></a>案例7</h2><ul>
+<li><code>spring-cloud-eureka-server-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-client-demo</code>【启动服务】</li>
+<li><code>spring-cloud-eureka-feign-hystrix-api</code></li>
+<li><code>spring-cloud-eureka-feign-hystrix-consumer</code>【启动服务】</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2019/03/16/jwt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/16/jwt/" class="post-title-link" itemprop="url">jwt</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-03-16 10:12:10 / Modified: 11:12:55" itemprop="dateCreated datePublished" datetime="2019-03-16T10:12:10+08:00">2019-03-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2019/03/16/%E7%B3%BB%E7%BB%9F%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E5%AF%BC%E8%87%B4rem%E5%B8%83%E5%B1%80%E5%8F%98%E5%A4%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/16/%E7%B3%BB%E7%BB%9F%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E5%AF%BC%E8%87%B4rem%E5%B8%83%E5%B1%80%E5%8F%98%E5%A4%A7/" class="post-title-link" itemprop="url">系统字体大小导致rem布局变大</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-03-16 10:12:10 / Modified: 11:22:32" itemprop="dateCreated datePublished" datetime="2019-03-16T10:12:10+08:00">2019-03-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>缘由：内部测试都ok，交给客户看的时候，整天变大，本来7.5rem = 750px，实际上大了很多。  </p>
+</blockquote>
+<blockquote>
+<p>各种情况排除后，发现是客户手机字体大小调整到了<strong>特大</strong>号</p>
+</blockquote>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p><code>getComputedStyle</code>方法能够获取到计算后的样式、大小。</p>
+<p>最后优化完的代码如下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">doc, win</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> isAndroid = win.navigator.appVersion.match(<span class="regexp">/android/gi</span>);</span><br><span class="line">     <span class="keyword">var</span> isIPhone = win.navigator.appVersion.match(<span class="regexp">/iphone/gi</span>);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> scale = <span class="number">1.0</span>;</span><br><span class="line">     <span class="keyword">var</span> ratio = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">if</span>(isIPhone) &#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">2</span>) &#123;</span><br><span class="line">         scale *= <span class="number">0.5</span>;</span><br><span class="line">         ratio *= <span class="number">2</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">3</span>) &#123;</span><br><span class="line">         scale *= (<span class="number">1</span>/<span class="number">3</span>);</span><br><span class="line">         ratio *= <span class="number">3</span>;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">var</span> text = <span class="string">&#x27;&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=&#x27;</span> + scale + <span class="string">&#x27;, maximum-scale=&#x27;</span> + scale + <span class="string">&#x27;,&#x27;</span> + <span class="string">&#x27; minimum-scale=&#x27;</span> + scale + <span class="string">&#x27;, width=device-width,&#x27;</span> + <span class="string">&#x27; user-scalable=no&quot; /&gt;&#x27;</span>;</span><br><span class="line">     <span class="built_in">document</span>.write(text);</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> docEl = doc.documentElement</span><br><span class="line">     <span class="keyword">var</span> resizeEvt = <span class="string">&#x27;orientationchange&#x27;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&#x27;orientationchange&#x27;</span> : <span class="string">&#x27;resize&#x27;</span></span><br><span class="line">     <span class="keyword">var</span> recalc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">var</span> clientWidth = docEl.clientWidth</span><br><span class="line">       <span class="keyword">if</span> (!clientWidth) <span class="keyword">return</span></span><br><span class="line">       docEl.style.fontSize = <span class="number">100</span> * (clientWidth / <span class="number">750</span>)  + <span class="string">&#x27;px&#x27;</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// 解决部分rem特别大的问题</span></span><br><span class="line">       <span class="keyword">var</span> docElFontSize = docEl.style.fontSize.replace(<span class="regexp">/px/gi</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">       <span class="keyword">var</span> computedFontSize = win.getComputedStyle(docEl)[<span class="string">&#x27;font-size&#x27;</span>].replace(<span class="regexp">/px/gi</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">       docElFontSize != computedFontSize &amp;&amp; (docEl.style.fontSize = docElFontSize * docElFontSize / computedFontSize + <span class="string">&#x27;px&#x27;</span>)</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">if</span> (!doc.addEventListener) <span class="keyword">return</span></span><br><span class="line">     recalc()</span><br><span class="line">     win.addEventListener(resizeEvt, recalc, <span class="literal">false</span>)</span><br><span class="line">&#125;)(<span class="built_in">document</span>, <span class="built_in">window</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2019/03/06/Jdalao%E7%B3%BB%E5%88%97%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/06/Jdalao%E7%B3%BB%E5%88%97%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">Jdalao系列文档</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-06 11:19:10" itemprop="dateCreated datePublished" datetime="2019-03-06T11:19:10+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-21 20:10:32" itemprop="dateModified" datetime="2019-03-21T20:10:32+08:00">2019-03-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="模板生成器"><a href="#模板生成器" class="headerlink" title="模板生成器"></a>模板生成器</h1><h2 id="通过jar包的方式直接运行"><a href="#通过jar包的方式直接运行" class="headerlink" title="通过jar包的方式直接运行"></a>通过jar包的方式直接运行</h2><ol>
+<li>在当前文件目录下，编辑<code>generate.properties</code>配置文件，设置好数据源、数据库等等配置</li>
+<li>打开cmd，运行<code>java -jar xxx.jar</code>,默认根据时间戳来生成文件夹，所有生成的文件都放在该文件夹内</li>
+</ol>
+<h2 id="通过maven依赖运行"><a href="#通过maven依赖运行" class="headerlink" title="通过maven依赖运行"></a>通过maven依赖运行</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jarjune<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Jdalao-framework-generate-code<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="在resources下创建generate-properties文件，并配置好"><a href="#在resources下创建generate-properties文件，并配置好" class="headerlink" title="在resources下创建generate.properties文件，并配置好"></a>在resources下创建<code>generate.properties</code>文件，并配置好</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">generate.package</span> <span class="string">=</span> <span class="string">com.jarjune.jdalao.auth</span></span><br><span class="line"><span class="string">generate.driver</span> <span class="string">=</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="string">generate.datasource</span> <span class="string">=</span> <span class="string">jdbc:mysql://localhost:3306/jdalao</span></span><br><span class="line"><span class="string">generate.user</span> <span class="string">=</span> <span class="string">root</span></span><br><span class="line"><span class="string">generate.pass</span> <span class="string">=</span> <span class="string">mysql</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>generate.package</code> 生成的文件会在这个包下</li>
+<li><code>generate.driver</code> jdbc驱动</li>
+<li><code>generate.datasource</code> 数据源</li>
+<li><code>generate.user</code> 数据库用户名</li>
+<li><code>generate.pass</code> 数据库密码</li>
+</ul>
+<h3 id="在java文件类似于如下，执行main方法即可"><a href="#在java文件类似于如下，执行main方法即可" class="headerlink" title="在java文件类似于如下，执行main方法即可"></a>在java文件类似于如下，执行main方法即可</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenerateCodeTest</span> <span class="keyword">extends</span> <span class="title">AbstractGenerateCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TemplateException, ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line"></span><br><span class="line">        GenerateCodeParams params = <span class="keyword">new</span> GenerateCodeParams();</span><br><span class="line"></span><br><span class="line">        params.setSystemParams(<span class="keyword">new</span> SystemParams().resolve());</span><br><span class="line">        <span class="keyword">new</span> GenerateCodeRunner().generate(params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">after</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="自带命令"><a href="#自带命令" class="headerlink" title="自带命令"></a>自带命令</h2><blockquote>
+<p>add [index] 把index索引的表增加到生成队列<br>del [index] 把index索引的表从生成队列中移除<br>ls 查看哪些要表生成  </p>
+</blockquote>
+<blockquote>
+<p>example:<br>add 1<br>add 2</p>
+</blockquote>
+<h2 id="生成的目录"><a href="#生成的目录" class="headerlink" title="生成的目录"></a>生成的目录</h2><ul>
+<li>jar包运行，会生成在当前位置的时间戳文件夹下</li>
+<li>项目内部运行，会生成在<code>generate.package</code>下</li>
+</ul>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>|- 时间戳<br>|– controller<br>|— 表名Controller.java<br>|– service<br>|— 表名Service.java<br>|— impl<br>|—- 表名ServiceImpl.java<br>|– dao<br>|— 表名Dao.java<br>|– dto<br>|— 表名Dto.java<br>|– entity<br>|— 表名Entity.java<br>|– mapper<br>|— 表名Mapper.xml  </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2019/03/06/spring%20aop%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/06/spring%20aop%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">spring aop的实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-06 11:19:10" itemprop="dateCreated datePublished" datetime="2019-03-06T11:19:10+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-23 15:27:33" itemprop="dateModified" datetime="2021-02-23T15:27:33+08:00">2021-02-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1、如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP<br>2、如果目标对象实现了接口，可以强制使用CGLIB实现AOP<br>3、如果目标对象没有实现了接口，必须采用CGLIB库，spring会自动在JDK动态代理和CGLIB之间转换<br>如何强制使用CGLIB实现AOP？</p>
+<ul>
+<li>添加CGLIB库，SPRING_HOME/cglib/*.jar</li>
+<li>在spring配置文件中加入<code>&lt;aop:aspectj-autoproxy proxy-target-class=&quot;true&quot;/&gt;</code><br>JDK动态代理和CGLIB字节码生成的区别？</li>
+<li>JDK动态代理只能对实现了接口的类生成代理，而不能针对类</li>
+<li>CGLIB是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法<br>因为是继承，所以该类或方法最好不要声明成final</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2018/12/25/%E3%80%90docker%E5%B0%8F%E8%AE%B0%E3%80%91docker%E6%89%93%E5%8C%85nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/25/%E3%80%90docker%E5%B0%8F%E8%AE%B0%E3%80%91docker%E6%89%93%E5%8C%85nginx/" class="post-title-link" itemprop="url">【docker小记】docker打包nginx</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-25 13:12:08" itemprop="dateCreated datePublished" datetime="2018-12-25T13:12:08+08:00">2018-12-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>缘由：AgentHub需要每个Agent打包一个前端页面的docker镜像</p>
+</blockquote>
+<p>采取的是用nginx作为服务器，环境是centos7</p>
+<h1 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h1><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p><code>yum -y install docker</code></p>
+<h2 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h2><p><code>systemctl start docker</code></p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>我是放在<code>/home/jarjune/</code>目录下,<br><img src="%5Cimg%5Cdocker_nginx.png" alt="docker_nginx"></p>
+<p>其中，</p>
+<ul>
+<li><code>/conf</code>是放nginx配置文件</li>
+<li><code>Dockerfile</code>是制作镜像的文件</li>
+<li><code>/images</code>是存放最后生成的镜像</li>
+<li><code>resource</code>是存放前端页面</li>
+</ul>
+<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#user nobody;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">  worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">  include   mime.types;</span><br><span class="line">  default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">  sendfile  on;</span><br><span class="line">  keepalive_timeout 65;</span><br><span class="line"></span><br><span class="line">  gzip  on;</span><br><span class="line"></span><br><span class="line">  server &#123;</span><br><span class="line"></span><br><span class="line">    #error_page 404 /404.html;</span><br><span class="line">    error_page  500 502 503 504 /50x.html;</span><br><span class="line"></span><br><span class="line">    location = /50x.html &#123; </span><br><span class="line">      root html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    listen 7777;</span><br><span class="line">    server_name test.com;</span><br><span class="line"></span><br><span class="line">    location ~ .*\.(css|js|swf|html|htm|pdf)$ &#123; </span><br><span class="line">      add_header Cache-Control no-store;</span><br><span class="line">      #add_header Content-Security-Policy upgrade-insecure-requests;</span><br><span class="line">      root /var/www/html;</span><br><span class="line">      autoindex on;</span><br><span class="line">      index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">    location / &#123;</span><br><span class="line">      charset utf-8;</span><br><span class="line">      root  /var/www/html;</span><br><span class="line">      index index.html index.htm index.shtml;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># Base images 基础镜像</span><br><span class="line">FROM nginx:latest</span><br><span class="line"></span><br><span class="line">#MAINTAINER 维护者信息</span><br><span class="line">MAINTAINER robot robot@yunqiacademy.org</span><br><span class="line"></span><br><span class="line">ENV RUN_USER nginx</span><br><span class="line">ENV RUN_GROUP nginx</span><br><span class="line">ENV DATA_DIR /var/www/html #ADD</span><br><span class="line">#RUN 执行以下命令</span><br><span class="line">RUN mkdir -p /var/www/html</span><br><span class="line"></span><br><span class="line">#COPY</span><br><span class="line">COPY ./resource/ /var/www/html </span><br><span class="line">COPY ./conf/nginx.conf /etc/nginx</span><br><span class="line"></span><br><span class="line">#EXPOSE 映射端口</span><br><span class="line">EXPOSE 7777</span><br><span class="line"></span><br><span class="line">#CMD 运行以下命令</span><br><span class="line">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成镜像"><a href="#生成镜像" class="headerlink" title="生成镜像"></a>生成镜像</h2><p><code>docker build --rm --tag nginx_webapp:1.0.0 .</code></p>
+<h2 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h2><p><code>docker images</code></p>
+<h2 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h2><p><code>docker run -d -p 81:7777 -it nginx_webapp:1.0.0 /bin/bash</code></p>
+<h2 id="查看镜像id-container-id"><a href="#查看镜像id-container-id" class="headerlink" title="查看镜像id(container id)"></a>查看镜像id(container id)</h2><p><code>docker ps</code></p>
+<h2 id="进入镜像"><a href="#进入镜像" class="headerlink" title="进入镜像"></a>进入镜像</h2><p><code>docker attach 81ad9dbc2a7a</code></p>
+<h2 id="运行nginx"><a href="#运行nginx" class="headerlink" title="运行nginx"></a>运行nginx</h2><p><code>nginx</code></p>
+<h2 id="测试是否成功"><a href="#测试是否成功" class="headerlink" title="测试是否成功"></a>测试是否成功</h2><p>浏览器输入地址</p>
+<h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p><code>docker save -o images/nginx_webapp_1.0.0.tar nginx_webapp:1.0.0</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2018/12/24/%E3%80%90vue-number-scroll%E3%80%91%E6%95%B0%E5%AD%97%E9%80%90%E6%B8%90%E5%A2%9E%E5%8A%A0%E6%88%96%E8%80%85%E5%87%8F%E5%B0%91%E7%9A%84%E6%BB%9A%E5%8A%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/24/%E3%80%90vue-number-scroll%E3%80%91%E6%95%B0%E5%AD%97%E9%80%90%E6%B8%90%E5%A2%9E%E5%8A%A0%E6%88%96%E8%80%85%E5%87%8F%E5%B0%91%E7%9A%84%E6%BB%9A%E5%8A%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">【vue-number-scroll】数字逐渐增加或者减少的滚动解决方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-24 10:05:45" itemprop="dateCreated datePublished" datetime="2018-12-24T10:05:45+08:00">2018-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p><img src="%5Cimg%5Cvue-number-scroll-demo.gif" alt="效果图"></p>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a target="_blank" rel="noopener" href="https://github.com/jarjune/vue-number-scroll" title="vue-number-scroll">https://github.com/jarjune/vue-number-scroll</a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save vue-number-scroll</span><br></pre></td></tr></table></figure>
+
+<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> vns <span class="keyword">from</span> <span class="string">&#x27;vue-number-scroll&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;vns :start=&quot;0&quot; :end=&quot;99&quot; :times=&quot;10&quot; :speed=&quot;50&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>默认值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>speed</td>
+<td>50</td>
+<td>跳转的间隔时间</td>
+</tr>
+<tr>
+<td>times</td>
+<td>10</td>
+<td>从开始到结束，变换的次数</td>
+</tr>
+<tr>
+<td>start</td>
+<td>0</td>
+<td>起始数值</td>
+</tr>
+<tr>
+<td>end</td>
+<td>0</td>
+<td>目标达到的数值</td>
+</tr>
+</tbody></table>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">排名：&lt;vns :start=&quot;0&quot; :end=&quot;99&quot; :speed=&quot;80&quot; :times=&quot;20&quot; :format=&quot;num =&gt; &#x27;第&#x27; + num + &#x27;名&#x27;&quot;/&gt;</span><br><span class="line">金额：&lt;vns :start=&quot;0&quot; :end=&quot;18299.5&quot; :speed=&quot;80&quot; :times=&quot;10&quot; :format=&quot;num =&gt; num + &#x27;元&#x27;&quot;/&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2018/11/13/%E5%86%8D%E6%88%98mysql-%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%8E%BB%E9%87%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/13/%E5%86%8D%E6%88%98mysql-%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%8E%BB%E9%87%8D/" class="post-title-link" itemprop="url">再战mysql 数据表去重</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2018-11-13 11:55:12 / Modified: 14:20:52" itemprop="dateCreated datePublished" datetime="2018-11-13T11:55:12+08:00">2018-11-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>年初时，写过一篇去重的，在小表中还能用用，在大表中真的是效率低下，现在给了一次优化<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jarjune/p/8328013.html" title="mysql去重">https://www.cnblogs.com/jarjune/p/8328013.html</a></p>
+</blockquote>
+<p>继上一篇文章</p>
+<h2 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER <span class="operator">/</span><span class="operator">/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> IF <span class="keyword">EXISTS</span> delete_rows_2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> delete_rows_2(<span class="keyword">IN</span> TABLENAME <span class="type">VARCHAR</span>(<span class="number">50</span>), <span class="keyword">IN</span> FIELDNAMES <span class="type">VARCHAR</span>(<span class="number">100</span>), <span class="keyword">IN</span> AUTOFIELD <span class="type">VARCHAR</span>(<span class="number">50</span>))</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DECLARE</span> DELETE_TABLE_ROWS_SQL <span class="type">VARCHAR</span>(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> DELETE_TABLE_ROWS_SQL <span class="operator">=</span> CONCAT(<span class="string">&#x27;</span></span><br><span class="line"><span class="string">		DELETE </span></span><br><span class="line"><span class="string">		FROM </span></span><br><span class="line"><span class="string">			&#x27;</span>, TABLENAME ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">		WHERE </span></span><br><span class="line"><span class="string">			(&#x27;</span>, FIELDNAMES ,<span class="string">&#x27;) IN ( </span></span><br><span class="line"><span class="string">				SELECT &#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">				FROM (</span></span><br><span class="line"><span class="string">					SELECT </span></span><br><span class="line"><span class="string">						&#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">					FROM </span></span><br><span class="line"><span class="string">						&#x27;</span>, TABLENAME ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">					GROUP BY </span></span><br><span class="line"><span class="string">						&#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">					HAVING </span></span><br><span class="line"><span class="string">						COUNT(1) &gt; 1 </span></span><br><span class="line"><span class="string">				) t1</span></span><br><span class="line"><span class="string">			) </span></span><br><span class="line"><span class="string">		AND &#x27;</span>, AUTOFIELD ,<span class="string">&#x27; NOT IN ( </span></span><br><span class="line"><span class="string">			SELECT &#x27;</span>, AUTOFIELD ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">			FROM (</span></span><br><span class="line"><span class="string">				SELECT </span></span><br><span class="line"><span class="string">					MAX(&#x27;</span>, AUTOFIELD ,<span class="string">&#x27;) &#x27;</span>, AUTOFIELD ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">				FROM </span></span><br><span class="line"><span class="string">					&#x27;</span>, TABLENAME ,<span class="string">&#x27;</span></span><br><span class="line"><span class="string">				GROUP BY </span></span><br><span class="line"><span class="string">					&#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">				HAVING </span></span><br><span class="line"><span class="string">					COUNT(1) &gt; 1 </span></span><br><span class="line"><span class="string">				) t2</span></span><br><span class="line"><span class="string">			)</span></span><br><span class="line"><span class="string">&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> <span class="variable">@DELETE</span>_TABLE_ROWS_SQL <span class="operator">=</span> DELETE_TABLE_ROWS_SQL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">PREPARE</span> DELETE_TABLE_ROWS_SQL_PRE <span class="keyword">FROM</span> <span class="variable">@DELETE</span>_TABLE_ROWS_SQL;</span><br><span class="line"><span class="keyword">EXECUTE</span> DELETE_TABLE_ROWS_SQL_PRE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">END</span><span class="operator">/</span><span class="operator">/</span></span><br><span class="line"></span><br><span class="line">DELIMITER ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> delete_rows_1(<span class="string">&#x27;表名&#x27;</span>, <span class="string">&#x27;字段1,字段2,字段3...&#x27;</span>, <span class="string">&#x27;主键(唯一)字段&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>之后发现删除的效率还是挺低，又优化成  </p>
+<h2 id="方法三-优化-："><a href="#方法三-优化-：" class="headerlink" title="方法三(优化)："></a>方法三(优化)：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER <span class="operator">/</span><span class="operator">/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> IF <span class="keyword">EXISTS</span> delete_rows_2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> delete_rows_2(<span class="keyword">IN</span> TABLENAME <span class="type">VARCHAR</span>(<span class="number">50</span>), <span class="keyword">IN</span> FIELDNAMES <span class="type">VARCHAR</span>(<span class="number">100</span>), <span class="keyword">IN</span> AUTOFIELD <span class="type">VARCHAR</span>(<span class="number">50</span>))</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DECLARE</span> DELETE_TABLE_ROWS_SQL <span class="type">VARCHAR</span>(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> DELETE_TABLE_ROWS_SQL <span class="operator">=</span> CONCAT(<span class="string">&#x27;</span></span><br><span class="line"><span class="string">		DELETE </span></span><br><span class="line"><span class="string">		FROM </span></span><br><span class="line"><span class="string">			&#x27;</span>, TABLENAME ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">		WHERE </span></span><br><span class="line"><span class="string">			&#x27;</span>, AUTOFIELD ,<span class="string">&#x27; IN ( </span></span><br><span class="line"><span class="string">				SELECT </span></span><br><span class="line"><span class="string">					&#x27;</span>, AUTOFIELD ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">				FROM</span></span><br><span class="line"><span class="string">					(</span></span><br><span class="line"><span class="string">					SELECT </span></span><br><span class="line"><span class="string">						&#x27;</span>, AUTOFIELD ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">					FROM </span></span><br><span class="line"><span class="string">						&#x27;</span>, TABLENAME ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">					WHERE </span></span><br><span class="line"><span class="string">						(&#x27;</span>, FIELDNAMES ,<span class="string">&#x27;) IN ( </span></span><br><span class="line"><span class="string">							SELECT </span></span><br><span class="line"><span class="string">								&#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">							FROM </span></span><br><span class="line"><span class="string">								&#x27;</span>, TABLENAME ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">							GROUP BY </span></span><br><span class="line"><span class="string">								&#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">							HAVING </span></span><br><span class="line"><span class="string">								COUNT(1) &gt; 1 </span></span><br><span class="line"><span class="string">						) </span></span><br><span class="line"><span class="string">					AND &#x27;</span>, AUTOFIELD ,<span class="string">&#x27; NOT IN ( </span></span><br><span class="line"><span class="string">						SELECT </span></span><br><span class="line"><span class="string">							MAX(&#x27;</span>, AUTOFIELD ,<span class="string">&#x27;) </span></span><br><span class="line"><span class="string">						FROM </span></span><br><span class="line"><span class="string">							&#x27;</span>, TABLENAME ,<span class="string">&#x27;</span></span><br><span class="line"><span class="string">						GROUP BY </span></span><br><span class="line"><span class="string">							&#x27;</span>, FIELDNAMES ,<span class="string">&#x27; </span></span><br><span class="line"><span class="string">						HAVING </span></span><br><span class="line"><span class="string">							COUNT(1) &gt; 1 </span></span><br><span class="line"><span class="string">					) </span></span><br><span class="line"><span class="string">				) t2 </span></span><br><span class="line"><span class="string">			) </span></span><br><span class="line"><span class="string">	&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> <span class="variable">@DELETE</span>_TABLE_ROWS_SQL <span class="operator">=</span> DELETE_TABLE_ROWS_SQL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">PREPARE</span> DELETE_TABLE_ROWS_SQL_PRE <span class="keyword">FROM</span> <span class="variable">@DELETE</span>_TABLE_ROWS_SQL;</span><br><span class="line"><span class="keyword">EXECUTE</span> DELETE_TABLE_ROWS_SQL_PRE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">END</span><span class="operator">/</span><span class="operator">/</span></span><br><span class="line"></span><br><span class="line">DELIMITER ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> delete_rows_2(<span class="string">&#x27;表名&#x27;</span>, <span class="string">&#x27;字段1,字段2,字段3...&#x27;</span>, <span class="string">&#x27;主键字段&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>由于上述都要group by 两次，又换了一种思路</p>
+<h2 id="方法四"><a href="#方法四" class="headerlink" title="方法四"></a>方法四</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> t1</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	l_weijij_47 t1,</span><br><span class="line">	(</span><br><span class="line">		<span class="keyword">SELECT</span></span><br><span class="line">			f01,</span><br><span class="line">			f02,</span><br><span class="line">			f03,</span><br><span class="line">			<span class="built_in">MAX</span>(seq_value) seq_value</span><br><span class="line">		<span class="keyword">FROM</span></span><br><span class="line">			l_weijij_47</span><br><span class="line">		<span class="keyword">GROUP</span> <span class="keyword">BY</span></span><br><span class="line">			f01,</span><br><span class="line">			f02,</span><br><span class="line">			f03</span><br><span class="line">		<span class="keyword">HAVING</span></span><br><span class="line">			<span class="built_in">COUNT</span>(<span class="number">1</span>) <span class="operator">&gt;</span> <span class="number">1</span></span><br><span class="line">		<span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">NULL</span></span><br><span class="line">	) t2</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">	t1.f01 <span class="operator">=</span> t2.f01</span><br><span class="line"><span class="keyword">AND</span> t1.f02 <span class="operator">=</span> t2.f02</span><br><span class="line"><span class="keyword">AND</span> t1.f03 <span class="operator">=</span> t2.f03</span><br><span class="line"><span class="keyword">and</span> t1.seq_value <span class="operator">&lt;</span> t2.seq_value</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：<br>group by默认会进行排序，所以要加上order by NULL就避免了排序<br>group by a,b,c的时候，a,b,c一定要加索引才快</p>
+</blockquote>
+<p>综上，方法四是目前在用的去重。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2018/11/11/%E5%86%85%E8%81%94%E5%85%83%E7%B4%A0%E4%B9%8B%E9%97%B4%E6%9C%89%E7%A9%BA%E9%9A%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/11/%E5%86%85%E8%81%94%E5%85%83%E7%B4%A0%E4%B9%8B%E9%97%B4%E6%9C%89%E7%A9%BA%E9%9A%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">内联元素之间有空隙的解决方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-11-11 15:46:22" itemprop="dateCreated datePublished" datetime="2018-11-11T15:46:22+08:00">2018-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="首先看三张图"><a href="#首先看三张图" class="headerlink" title="首先看三张图"></a>首先看三张图</h1><blockquote>
+<p>图片高度46px<br><img src="%5Cimg%5Cspace_1.png"></p>
+</blockquote>
+<blockquote>
+<p>文字高度14px，已设置line-height: 1;<br><img src="%5Cimg%5Cspace_2.png"></p>
+</blockquote>
+<blockquote>
+<p>父元素高度为auto，也就是图片中显示的64px, 按理来说，高度应该 是图片(46px) + 文字(14px) = 60px，那多出来的4px是哪来的？<br><img src="%5Cimg%5Cspace_3.png"></p>
+</blockquote>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><ol>
+<li>设置文本的行高，line-height: 1;</li>
+<li>可能是换行符引起，建议：如果行内元素少，就不要换行了，如果换行，就在行内元素之间加上注释<code>&lt;span&gt;&lt;/span&gt;&lt;!--  --&gt;&lt;span&gt;&lt;/span&gt;</code></li>
+<li><strong>设置父元素的font-size: 0;</strong></li>
+</ol>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="%5Cimg%5Cspace_4.png">，解决！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2018/09/20/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E8%A1%A8%E5%8D%95%E8%87%AA%E9%80%82%E5%BA%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/20/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E8%A1%A8%E5%8D%95%E8%87%AA%E9%80%82%E5%BA%94/" class="post-title-link" itemprop="url">【前端】表单自适应</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-09-20 16:23:43" itemprop="dateCreated datePublished" datetime="2018-09-20T16:23:43+08:00">2018-09-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-02 21:05:00" itemprop="dateModified" datetime="2021-03-02T21:05:00+08:00">2021-03-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>写前端页面的时候难免遇到表单的样式自适应，文字+input，文字数量又不确定，表单还要自适应某个div的宽度</p>
+</blockquote>
+<p><img src="%5Cimg%5Cform1.png" alt="表单1"></p>
+<p><img src="%5Cimg%5Cform2.png" alt="表单2"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">	<span class="selector-class">.col</span>&#123; <span class="attribute">width</span>: <span class="number">48%</span>; <span class="attribute">height</span>: <span class="number">34px</span>; <span class="attribute">float</span>: left; &#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.label</span>&#123; <span class="attribute">float</span>: left; <span class="attribute">line-height</span>: <span class="number">34px</span>; <span class="attribute">text-align</span>: right; <span class="attribute">width</span>: <span class="number">90px</span>; &#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.input</span>&#123; <span class="attribute">margin-left</span>: <span class="number">90px</span>; &#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.input</span> <span class="selector-tag">input</span>&#123; <span class="attribute">width</span>: <span class="number">100%</span>; <span class="attribute">box-sizing</span>: border-box; <span class="attribute">height</span>: <span class="number">34px</span>; <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>; <span class="attribute">border-radius</span>: <span class="number">3px</span>; &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span>&gt;</span>姓名：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;label&quot;</span>&gt;</span>身份证号码：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;input&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jarjune</p>
+  <div class="site-description" itemprop="description">java的前端</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jarjune</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
