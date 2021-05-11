@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://blog.jarjune.com/2021/01/01/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E9%AB%98%E6%80%A7%E8%83%BDMySQL/index.html">
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="开搞开搞  第一章逻辑架构  连接器 查询缓存 解析器 优化器 执行器  并发控制读写锁 读锁 写锁  锁粒度 表锁 行锁 页锁  事务特征：ACID 怎么实现这四个特性？atomicity 原子性  要么全成功、要么全失败  innodb实现：COMMIT、ROLLBACK consistency 一致性  事务没提交，所做的修改不会保存到数据库  innodb实现：Doublewrite B">
-<meta property="og:locale">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.jarjune.com/images/%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84.png">
 <meta property="og:image" content="https://blog.jarjune.com/images/mysql%E9%9A%94%E7%A6%BB%E6%9C%BA%E5%88%B6.png">
 <meta property="og:image" content="https://blog.jarjune.com/images/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E5%BC%95%E6%93%8E.png">
@@ -49,7 +49,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'zh-Hans'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -93,7 +93,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -122,12 +122,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -157,7 +157,7 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2021/01/01/%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91%E9%AB%98%E6%80%A7%E8%83%BDMySQL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -179,16 +179,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2021-01-01 10:13:51" itemprop="dateCreated datePublished" datetime="2021-01-01T10:13:51+08:00">2021-01-01</time>
+              <time title="创建时间：2021-01-01 10:13:51" itemprop="dateCreated datePublished" datetime="2021-01-01T10:13:51+08:00">2021-01-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
               </span>
 
           
@@ -580,10 +580,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          站点概览
         </li>
       </ul>
 
@@ -604,7 +604,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
   </nav>
@@ -637,7 +637,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         

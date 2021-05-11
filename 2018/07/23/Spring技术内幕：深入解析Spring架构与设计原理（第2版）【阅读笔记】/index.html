@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://blog.jarjune.com/2018/07/23/Spring%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%EF%BC%9A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90Spring%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91/index.html">
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="用着spring当然得懂核心技术以及原理啦~~~话不多说，开干！不定期增加内容。   注：不是跟着书上的内容来的，完全是靠自己一个个方法点进去，分析实现原理实际上，本文标题应该是 （Spring技术内幕：深入解析Spring架构与设计原理（第2版）【阅读笔记】 与 Spring源码分析）相结合本文源码来自于spring4.1.3  spring 核心实现什么是IoC一个引用自https:&#x2F;&#x2F;ww">
-<meta property="og:locale">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.jarjune.com/img/BeanFactory.png">
 <meta property="og:image" content="https://blog.jarjune.com/img/FileSystemXmlApplicationContext.png">
 <meta property="og:image" content="https://blog.jarjune.com/images/bean%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.webp">
@@ -45,7 +45,7 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'zh-Hans'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -89,7 +89,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -118,12 +118,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -153,7 +153,7 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2018/07/23/Spring%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%EF%BC%9A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90Spring%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -175,16 +175,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2018-07-23 15:42:11" itemprop="dateCreated datePublished" datetime="2018-07-23T15:42:11+08:00">2018-07-23</time>
+              <time title="创建时间：2018-07-23 15:42:11" itemprop="dateCreated datePublished" datetime="2018-07-23T15:42:11+08:00">2018-07-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
               </span>
 
           
@@ -433,10 +433,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          站点概览
         </li>
       </ul>
 
@@ -457,7 +457,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">48</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
   </nav>
@@ -490,7 +490,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">jarjune</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
