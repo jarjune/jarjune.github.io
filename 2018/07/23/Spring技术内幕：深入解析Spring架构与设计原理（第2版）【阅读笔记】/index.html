@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="用着spring当然得懂核心技术以及原理啦~~~话不多说，开干！不定期增加内容。   注：不是跟着书上的内容来的，完全是靠自己一个个方法点进去，分析实现原理实际上，本文标题应该是 （Spring技术内幕：深入解析Spring架构与设计原理（第2版）【阅读笔记】 与 Spring源码分析）相结合本文源码来自于spring4.1.3  spring 核心实现什么是IoC一个引用自https:&#x2F;&#x2F;ww">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.jarjune.com/img/BeanFactory.png">
-<meta property="og:image" content="https://blog.jarjune.com/img/FileSystemXmlApplicationContext.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/BeanFactory.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/FileSystemXmlApplicationContext.png">
 <meta property="og:image" content="https://blog.jarjune.com/images/bean%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.webp">
 <meta property="article:published_time" content="2018-07-23T07:42:11.000Z">
-<meta property="article:modified_time" content="2021-05-11T14:57:00.123Z">
+<meta property="article:modified_time" content="2021-05-11T15:03:55.906Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/img/BeanFactory.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/images/BeanFactory.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2018/07/23/Spring%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95%EF%BC%9A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90Spring%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89%E3%80%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E3%80%91/">
 
@@ -184,7 +184,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 22:57:00" itemprop="dateModified" datetime="2021-05-11T22:57:00+08:00">2021-05-11</time>
+                <time title="修改时间：2021-05-11 23:03:55" itemprop="dateModified" datetime="2021-05-11T23:03:55+08:00">2021-05-11</time>
               </span>
 
           
@@ -209,13 +209,13 @@
 <p>我开了一家薯条店，底下有一百家分店<br>一开始我懒，让分店自己去炸薯条，反正只要他们按照统一的配方来就好，比如油温170度，炸两分钟<br>有一天我突然发现油温169度炸出来的薯条更好次，kao！<strong>我得打100个电话，告诉分店经理改配方！</strong>（就是你要改很多处代码）<br>有了这次教训，我觉得让总店（就是Spring容器）来统一炸好薯条，然后送到各个分店去，要吃的时候再拿出来炸热一下就ok了<br>本来是分店自己决定怎么炸薯条的，虽然我给了他们配方，但是最终决定权在他们手上，他们偷偷少炸几秒钟、少放点油，我都管不着，<strong>现在我霸道了，把炸薯条权收归中央，这不就是控制反转（IOC）了吗？</strong><br>换个角度讲，现在分店的薯条，都是我总店炸好送过去的，分店依赖总店的薯条，<strong>这不就是依赖注入了吗？</strong></p>
 </blockquote>
 <h2 id="IoC-容器系列的设计与实现"><a href="#IoC-容器系列的设计与实现" class="headerlink" title="IoC 容器系列的设计与实现"></a>IoC 容器系列的设计与实现</h2><h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p><code>BeanFactory</code>是容器的最基本接口定义。</p>
-<p><img src="/img/BeanFactory.png" alt="BeanFactory继承关系图"></p>
+<p><img src="/images/BeanFactory.png" alt="BeanFactory继承关系图"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	String FACTORY_BEAN_PREFIX = <span class="string">&quot;&amp;&quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 获取指定名字的bean</span></span><br><span class="line">	<span class="function">Object <span class="title">getBean</span><span class="params">(String name)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取指定名字与类型的bean</span></span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(String name, Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取指定类型的bean</span></span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取指定名字的bean并覆盖bean的默认参数</span></span><br><span class="line">	<span class="function">Object <span class="title">getBean</span><span class="params">(String name, Object... args)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取指定类型的bean并覆盖bean的默认参数</span></span><br><span class="line">	&lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; requiredType, Object... args)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 判断IOC容器中是否有指定名字的bean</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">containsBean</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 判断指定名字的bean是否为单例</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isSingleton</span><span class="params">(String name)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isPrototype</span><span class="params">(String name)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 判断指定名字的bean类型是否匹配</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isTypeMatch</span><span class="params">(String name, Class&lt;?&gt; targetType)</span> <span class="keyword">throws</span> NoSuchBeanDefinitionException</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取指定名字的bean的类型</span></span><br><span class="line">	Class&lt;?&gt; getType(String name) <span class="keyword">throws</span> NoSuchBeanDefinitionException;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取指定名字的bean的别名</span></span><br><span class="line">	String[] getAliases(String name);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="IOC容器的初始化过程"><a href="#IOC容器的初始化过程" class="headerlink" title="IOC容器的初始化过程"></a>IOC容器的初始化过程</h4><h5 id="BeanDefinition的Resource定位"><a href="#BeanDefinition的Resource定位" class="headerlink" title="BeanDefinition的Resource定位"></a>BeanDefinition的Resource定位</h5><p>首先定义一个Resource来定位容器使用BeanDefinition。</p>
 <p>常见几种读取方式</p>
 <ul>
-<li><p>FileSystemXmlApplicationContext(从文件系统载入Resource)<br><img src="/img/FileSystemXmlApplicationContext.png" alt="FileSystemXmlApplicationContext继承关系图"></p>
+<li><p>FileSystemXmlApplicationContext(从文件系统载入Resource)<br><img src="/images/FileSystemXmlApplicationContext.png" alt="FileSystemXmlApplicationContext继承关系图"></p>
 </li>
 <li><p>ClassPathXmlApplicationContext(从classpath载入Resource)</p>
 </li>

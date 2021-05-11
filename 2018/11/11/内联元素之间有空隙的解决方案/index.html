@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="前端的java">
 <meta property="og:description" content="首先看三张图 图片高度46px   文字高度14px，已设置line-height: 1;   父元素高度为auto，也就是图片中显示的64px, 按理来说，高度应该 是图片(46px) + 文字(14px) &#x3D; 60px，那多出来的4px是哪来的？  解决方法 设置文本的行高，line-height: 1; 可能是换行符引起，建议：如果行内元素少，就不要换行了，如果换行，就在行内元素之间加上注释">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.jarjune.com/img/space_1.png">
-<meta property="og:image" content="https://blog.jarjune.com/img/space_2.png">
-<meta property="og:image" content="https://blog.jarjune.com/img/space_3.png">
-<meta property="og:image" content="https://blog.jarjune.com/img/space_4.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/space_1.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/space_2.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/space_3.png">
+<meta property="og:image" content="https://blog.jarjune.com/images/space_4.png">
 <meta property="article:published_time" content="2018-11-11T07:46:22.000Z">
-<meta property="article:modified_time" content="2021-05-11T14:56:38.288Z">
+<meta property="article:modified_time" content="2021-05-11T15:03:56.094Z">
 <meta property="article:author" content="jarjune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jarjune.com/img/space_1.png">
+<meta name="twitter:image" content="https://blog.jarjune.com/images/space_1.png">
 
 <link rel="canonical" href="https://blog.jarjune.com/2018/11/11/%E5%86%85%E8%81%94%E5%85%83%E7%B4%A0%E4%B9%8B%E9%97%B4%E6%9C%89%E7%A9%BA%E9%9A%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
@@ -185,7 +185,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-11 22:56:38" itemprop="dateModified" datetime="2021-05-11T22:56:38+08:00">2021-05-11</time>
+                <time title="修改时间：2021-05-11 23:03:56" itemprop="dateModified" datetime="2021-05-11T23:03:56+08:00">2021-05-11</time>
               </span>
 
           
@@ -200,20 +200,20 @@
 
       
         <h1 id="首先看三张图"><a href="#首先看三张图" class="headerlink" title="首先看三张图"></a>首先看三张图</h1><blockquote>
-<p>图片高度46px<br><img src="/img/space_1.png"></p>
+<p>图片高度46px<br><img src="/images/space_1.png"></p>
 </blockquote>
 <blockquote>
-<p>文字高度14px，已设置line-height: 1;<br><img src="/img/space_2.png"></p>
+<p>文字高度14px，已设置line-height: 1;<br><img src="/images/space_2.png"></p>
 </blockquote>
 <blockquote>
-<p>父元素高度为auto，也就是图片中显示的64px, 按理来说，高度应该 是图片(46px) + 文字(14px) = 60px，那多出来的4px是哪来的？<br><img src="/img/space_3.png"></p>
+<p>父元素高度为auto，也就是图片中显示的64px, 按理来说，高度应该 是图片(46px) + 文字(14px) = 60px，那多出来的4px是哪来的？<br><img src="/images/space_3.png"></p>
 </blockquote>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><ol>
 <li>设置文本的行高，line-height: 1;</li>
 <li>可能是换行符引起，建议：如果行内元素少，就不要换行了，如果换行，就在行内元素之间加上注释<code>&lt;span&gt;&lt;/span&gt;&lt;!--  --&gt;&lt;span&gt;&lt;/span&gt;</code></li>
 <li><strong>设置父元素的font-size: 0;</strong></li>
 </ol>
-<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="/img/space_4.png">，解决！</p>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="/images/space_4.png">，解决！</p>
 
     </div>
 
