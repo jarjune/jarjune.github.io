@@ -1,37 +1,616 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.jarjune.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="为什么要分享DDD这个理论？ 我们项目是基于DDD方法论实现的  通过脚手架建立的时候，会发现README里面已经说明了该怎么调用  目的了解为什么要用DDDDDD与传统三层架构的差别之处？传统三层架构 传统的接口-逻辑-数据访问三层架构里，业务逻辑层的XxxServiceImpl类是个上帝类，往往通过过程式业务逻辑实现。前几行代码做校验，接下来做数据类型转换，然后是业务处理逻辑的代码，中间穿插着">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析领域驱动设计-分享会">
+<meta property="og:url" content="https://blog.jarjune.com/2021/05/13/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/index.html">
+<meta property="og:site_name" content="前端的java">
+<meta property="og:description" content="为什么要分享DDD这个理论？ 我们项目是基于DDD方法论实现的  通过脚手架建立的时候，会发现README里面已经说明了该怎么调用  目的了解为什么要用DDDDDD与传统三层架构的差别之处？传统三层架构 传统的接口-逻辑-数据访问三层架构里，业务逻辑层的XxxServiceImpl类是个上帝类，往往通过过程式业务逻辑实现。前几行代码做校验，接下来做数据类型转换，然后是业务处理逻辑的代码，中间穿插着">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/image-20210513195409008.png">
+<meta property="og:image" content="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/ddd.png">
+<meta property="og:image" content="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/ddd%E5%AF%B9%E6%AF%94.png">
+<meta property="og:image" content="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/a.gif">
+<meta property="og:image" content="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/6cd4f77ca689453d99fbec1135293b3c.png">
+<meta property="article:published_time" content="2021-05-13T01:56:02.000Z">
+<meta property="article:modified_time" content="2021-06-10T10:51:42.679Z">
+<meta property="article:author" content="jarjune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/image-20210513195409008.png">
+
+<link rel="canonical" href="https://blog.jarjune.com/2021/05/13/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>浅析领域驱动设计-分享会 | 前端的java</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">前端的java</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2021/05/13/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅析领域驱动设计-分享会
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-13 09:56:02" itemprop="dateCreated datePublished" datetime="2021-05-13T09:56:02+08:00">2021-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-10 18:51:42" itemprop="dateModified" datetime="2021-06-10T18:51:42+08:00">2021-06-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="为什么要分享DDD这个理论？"><a href="#为什么要分享DDD这个理论？" class="headerlink" title="为什么要分享DDD这个理论？"></a>为什么要分享DDD这个理论？</h1><blockquote>
+<p>我们项目是基于DDD方法论实现的</p>
+</blockquote>
+<p>通过脚手架建立的时候，会发现<code>README</code>里面已经说明了该怎么调用</p>
+<p><img src="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/image-20210513195409008.png" alt="image-20210513195409008"></p>
+<h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><h2 id="了解为什么要用DDD"><a href="#了解为什么要用DDD" class="headerlink" title="了解为什么要用DDD"></a>了解为什么要用DDD</h2><h3 id="DDD与传统三层架构的差别之处？"><a href="#DDD与传统三层架构的差别之处？" class="headerlink" title="DDD与传统三层架构的差别之处？"></a>DDD与传统三层架构的差别之处？</h3><h4 id="传统三层架构"><a href="#传统三层架构" class="headerlink" title="传统三层架构"></a>传统三层架构</h4><blockquote>
+<p>传统的接口-逻辑-数据访问三层架构里，业务逻辑层的XxxServiceImpl类是个上帝类，往往通过过程式业务逻辑实现。前几行代码做校验，接下来做数据类型转换，然后是业务处理逻辑的代码，中间穿插着通过接口或者dao获取更多的数据；拿到数据后，又是类型转换代码，然后接着一段业务逻辑代码，最后可能还要落库、发布消息等等。这样的代码参杂了太多不同的代码，非常难以维护。</p>
+</blockquote>
+<h4 id="DDD"><a href="#DDD" class="headerlink" title="DDD"></a>DDD</h4><blockquote>
+<p>采用DDD的设计思想，业务逻辑不再集中在几个大型的类上，而是由大量相对小的领域对象(类)组成，这些类具备自己的状态和行为，每个类是相对完整的独立体，并与现实领域的业务对象映射。领域模型就是由这样许多的细粒度的类组成。</p>
+</blockquote>
+<p><img src="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/ddd.png" alt="ddd"></p>
+<p>对比</p>
+<p><img src="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/ddd%E5%AF%B9%E6%AF%94.png" alt="img"></p>
+<h2 id="更好的在项目中使用DDD"><a href="#更好的在项目中使用DDD" class="headerlink" title="更好的在项目中使用DDD"></a>更好的在项目中使用DDD</h2><p><img src="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/a.gif" alt="img"></p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h2><h3 id="值对象-value-object"><a href="#值对象-value-object" class="headerlink" title="值对象(value object)"></a>值对象(value object)</h3><blockquote>
+<p>注：这个vo不是view object</p>
+</blockquote>
+<p>当一个对象用于对事务进行描述而没有唯一标识时，它被称作值对象（Value Object）。</p>
+<p>例：比如颜色信息，我们只需要知道{“name”:“黑色”，”css”:“#000000”}这样的值信息就能够满足要求了，这避免了我们对标识追踪带来的系统复杂性。</p>
+<blockquote>
+<p>当决定一个领域概念是否应该建模成值对象时，需要考虑是否拥有一些特性：</p>
+<ul>
+<li>度量或描述领域中的一件东西；</li>
+<li>可以作为不变对象；</li>
+<li>将不同的相关属性组合成一个概念整体；</li>
+<li>当度量或描述改变时，可以使用另一个值对象予以替换；</li>
+<li>可以与其他值对象进行相等性比较；</li>
+<li>不对协作对象造成负面影响。</li>
+</ul>
+<p>值对象的特征汇总如下：</p>
+<ol>
+<li>度量或描述。只是度量或描述领域中某件东西的一个概念；</li>
+<li>不变性。值对象在创建后，就不会发生改变，如果需要改变的话，将创建一个新的值对象并对原有对象进行替换；</li>
+<li>概念整体性。一个值对象可以只有一个属性，也可以拥有一组相关属性。如果一组属性联合起来并不能表达一个整体上的概念，那就没有什么意义；</li>
+<li>有效性。值对象的构造函数应该用于保障概念整体性的有效性；</li>
+<li>可替换性。如果需要改变的话，我们需要将整个值对象替换成一个新的值对象实例；</li>
+<li>属性相等性。通过比较两个对象的类型和属性来决定其相等性；</li>
+<li>方法无副作用。由于不变性，值对象的方法一般为一个无副作用函数，这个函数表示对某个对象的操作，它只用于产生输出，不会修改对象状态。</li>
+</ol>
+</blockquote>
+<p>以业务订单为例，</p>
+<blockquote>
+<p>通常情况下，我们我们的订单号为<code>String</code>类型，而创建订单号，或者验证订单号的格式是否符合规范时，往往通过一个<code>验证方法</code>、<code>自定义验证类</code>来解决，那现在思考一下这个方法写在哪呢？</p>
+</blockquote>
+<p>service？util？component？etc…</p>
+<p>A写在service，B写在util，C写在component，etc…</p>
+<p>就会造成一个项目，n种风格</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">createOrderNo</span><span class="params">(OrderTypeEnum orderTypeEnum,Long userId)</span></span>&#123;</span><br><span class="line">    String orderNo=<span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(orderTypeEnum==OrderTypeEnum.MARKET)&#123;</span><br><span class="line">        orderNo=<span class="string">&quot;100&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    SimpleDateFormat sdf1 = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyyMMddHHmmssFFFF&quot;</span>);</span><br><span class="line">    orderNo+=sdf1.format(<span class="keyword">new</span> Date());</span><br><span class="line">    <span class="keyword">if</span>(userId != <span class="keyword">null</span> &amp;&amp; userId&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        orderNo+=userId.toString().substring(userId.toString().length()-<span class="number">4</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        orderNo+=String.format(<span class="string">&quot;%04d&quot;</span>,<span class="keyword">new</span> Random().nextInt(<span class="number">9999</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> orderNo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改成如下形式，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Setter(value = AccessLevel.PRIVATE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderNo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String value;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderNo</span><span class="params">(String value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 省略验证代码...</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 验证通过设置值</span></span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OrderNo</span><span class="params">(OrderTypeEnum orderTypeEnum, Long userId)</span></span>&#123;</span><br><span class="line">        String orderNo=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(orderTypeEnum==OrderTypeEnum.MARKET)&#123;</span><br><span class="line">            orderNo=<span class="string">&quot;100&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        SimpleDateFormat sdf1 = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyyMMddHHmmssFFFF&quot;</span>);</span><br><span class="line">        orderNo+=sdf1.format(<span class="keyword">new</span> Date());</span><br><span class="line">        <span class="keyword">if</span>(userId != <span class="keyword">null</span> &amp;&amp; userId&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            orderNo+=userId.toString().substring(userId.toString().length()-<span class="number">4</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            orderNo+=String.format(<span class="string">&quot;%04d&quot;</span>,<span class="keyword">new</span> Random().nextInt(<span class="number">9999</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.value = orderNo;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 各种行为方法(伪代码)</span></span><br><span class="line">    <span class="comment">// 是否为市场订单</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMarketOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> orderNo.indexOf(<span class="string">&quot;100&quot;</span>) == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取创建时间(一大段代码)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Date <span class="title">getCreateTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，订单号是一个明确的领域概念，相比字符串方案，其拥有验证逻辑，在使用的时候，也就不需要额外去校验格式。</p>
+<p>除此之外，还有一个很重要的概念，值对象是拥有各种行为的，</p>
+<p>比如，我们需要通过订单号判断是否为市场订单（即前三位是100开头），</p>
+<p>比如，我们需要通过订单号判断获取订单创建时间（订单号包含创建时间）</p>
+<p>etc…</p>
+<p>原有的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String orderNo = <span class="string">&quot;10020200101....&quot;</span>;</span><br><span class="line"><span class="keyword">if</span>(orderNo.indexOf(<span class="string">&quot;100&quot;</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 获取创建时间(一大段代码)</span></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>就变成了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OrderNo orderNo = <span class="keyword">new</span> OrderNo(<span class="string">&quot;10020200101....&quot;</span>);</span><br><span class="line"><span class="keyword">if</span>(orderNo.isMarketOrder()) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">orderNo.getCreateTime();</span><br></pre></td></tr></table></figure>
+
+<p>这个时候，那如果把这些代码抽出来，改写成方法，这就回到了开头的问题了，<br>而这些行为，原本就都是属于OrderNo的</p>
+<h3 id="实体-entity"><a href="#实体-entity" class="headerlink" title="实体(entity)"></a>实体(entity)</h3><p>当一个对象由其标识（而不是属性）区分时，这种对象称为实体（Entity）。</p>
+<p>例：最简单的，公安系统的身份信息录入，对于人的模拟，即认为是实体，因为每个人是独一无二的，且其具有唯一标识（如公安系统分发的身份证号码）。</p>
+<blockquote>
+<p>但是，大多数情况下，唯一标识都是由数据库自增主键，UUID，GUID，分布式id生成器生成，etc…</p>
+</blockquote>
+<p>实体也有行为</p>
+<p>还是以业务订单 - 订单实体为例，</p>
+<p>原有的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderNo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderName;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// etc...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就变成了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> OrderNo orderNo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderName;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// etc...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="贫血模型vs充血模型"><a href="#贫血模型vs充血模型" class="headerlink" title="贫血模型vs充血模型"></a>贫血模型vs充血模型</h4><blockquote>
+<p> 贫血模型</p>
+</blockquote>
+<p>我们现在常用的pojo就是贫血模型的代表，里面只有get、set方法，没有行为方法，导致所有的行为都在service层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderNo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderName;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// etc...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通常情况下，将订单状态设置为已支付</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">order.setStatus(OrderStatus.Paid);</span><br><span class="line">repo.save(order);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>充血模型</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderNo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderName;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// etc...</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paid</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        setStatus(OrderStatus.Paid.getValue());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// etc...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在充血模型下，设置为已支付（实体的行为）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">order.paid(); <span class="comment">// 不用考虑具体实现，因为已经在行为中设置好了</span></span><br><span class="line">repo.save(order);</span><br></pre></td></tr></table></figure>
+
+<h3 id="领域服务-domain-service"><a href="#领域服务-domain-service" class="headerlink" title="领域服务(domain service)"></a>领域服务(domain service)</h3><p>领域服务没有任何属性或数据，只是一个领域行为或动作，不适合放在任何聚合内的逻辑行为</p>
+<blockquote>
+<p>比如，订单的金额统计，单个订单无法完成统计的行为。</p>
+<p>一般情况下，领域服务只接收参数，执行行为，不依赖repo</p>
+</blockquote>
+<p>A聚合 -&gt; A领域服务</p>
+<p>B聚合 -&gt; B领域服务</p>
+<p>跨AB聚合 -&gt; AB领域服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建订单的核心业务</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> OrderInfo <span class="title">createOrder</span><span class="params">(OrderAddCommand orderAdd)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">// 通过参数传入</span></span><br><span class="line">        <span class="comment">// OrderInfo orderInfo = new OrderInfo();</span></span><br><span class="line">        <span class="comment">// List&lt;OrderInfo&gt; oldOrders = orderService.queryNotPayByUserIdAndProductId(orderAddBO.getUserId(), orderAddBO.getProductId());</span></span><br><span class="line">        <span class="comment">// if (!oldOrders.isEmpty()) &#123;</span></span><br><span class="line">        <span class="comment">//     orderInfo = oldOrders.get(0);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">    	OrderInfo orderInfo = orderAdd.getOrderInfo();</span><br><span class="line">    	<span class="keyword">if</span>(orderInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">            orderInfo = <span class="keyword">new</span> OrderInfo();</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="comment">// 通过参数传入</span></span><br><span class="line">        <span class="comment">// GoodInfoVO goodInfoVO = goodService.get(Long.valueOf(orderAddBO.getProductId()));</span></span><br><span class="line">    	GoodInfo goodInfo = orderAdd.getGoodInfo();</span><br><span class="line">        <span class="keyword">if</span> (goodInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> OrderExceptionConstants.PRODUCTNOTEXIST;</span><br><span class="line">        &#125;</span><br><span class="line">        UserInfo userInfo = orderAdd.getUserInfo();</span><br><span class="line">        <span class="comment">// boolean isOA = AccountSourceEnum.FROM_OA.getId().toString().equals(user.getSource());</span></span><br><span class="line">        <span class="keyword">boolean</span> isOA = userInfo.isOA();</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// if (isOA &amp;&amp; goodInfoVO.getIsUpgrade() != 1) &#123;</span></span><br><span class="line">    	<span class="keyword">if</span> (isOA &amp;&amp; !goodInfo.isUpgrade()) &#123;</span><br><span class="line">            OrderUserImport orderUserImport = orderAdd.getOrderUserImport();</span><br><span class="line">            <span class="keyword">if</span> (orderUserImport == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> OrderExceptionConstants.USERISNOTOAACCOUNT;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!orderAdd.getProductId().equals(orderUserImport.getProductId())) &#123;</span><br><span class="line">                <span class="keyword">throw</span> OrderExceptionConstants.PRODUCTISERROR;</span><br><span class="line">            &#125;</span><br><span class="line">            orderInfo = createMarket(...);</span><br><span class="line">            <span class="comment">/*orderInfo.setOrderName(goodInfoVO.getGoodsFullName());</span></span><br><span class="line"><span class="comment">            orderInfo.setOrderType(OrderTypeEnum.MARKET.getValue()); orderInfo.setCardExpireTime(getExpireTime(orderUserInnerResult.getOrderUserImportDetail().getCreateTime(), goodInfoVO.getCardExpiredYears()));</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">            if (new Date().before(orderUserInnerResult.getOrderUserImport().getPayExpireTime())) &#123;</span></span><br><span class="line"><span class="comment">                orderInfo.setPrice(goodInfoVO.getGoodsPromotionPrice());</span></span><br><span class="line"><span class="comment">            &#125; else &#123;</span></span><br><span class="line"><span class="comment">                orderInfo.setPrice(goodInfoVO.getGoodsPrice());</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            orderInfo.setSourceType(TypeEnum.QRCODE.getType().equals(orderUserInnerResult.getOrderUserImport().getType()) ? OrderSourceTypeEnum.QR.getValue() : OrderSourceTypeEnum.IMPORT.getValue());</span></span><br><span class="line"><span class="comment">            orderInfo.setProjectId(orderUserInnerResult.getOrderUserImport().getProjectId());</span></span><br><span class="line"><span class="comment">            orderInfo.setSchoolId(orderUserInnerResult.getOrderUserImport().getSchoolId());*/</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            </span><br><span class="line">            orderInfo = createNotMarket(...);</span><br><span class="line">            <span class="comment">/*orderInfo.setOrderType(OrderTypeEnum.NOTMARKET.getValue());</span></span><br><span class="line"><span class="comment">            if (OrderClientTypeEnum.IOS.equals(orderAddBO.getClientType())) &#123;</span></span><br><span class="line"><span class="comment">                orderInfo.setOrderName(&quot;app store内购买&quot;);</span></span><br><span class="line"><span class="comment">                orderInfo.setPrice(getIosPrice(MemberTypeEnum.parseValue(goodInfoVO.getOldCardType())));</span></span><br><span class="line"><span class="comment">            &#125; else &#123;</span></span><br><span class="line"><span class="comment">                orderInfo.setOrderName(goodInfoVO.getGoodsFullName());</span></span><br><span class="line"><span class="comment">                orderInfo.setPrice(goodInfoVO.getGoodsPrice());</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            if (goodInfoVO.getIsUpgrade() == 1) &#123;</span></span><br><span class="line"><span class="comment">                Calendar calendar = Calendar.getInstance();</span></span><br><span class="line"><span class="comment">                calendar.set(user.getExpireYear(), Calendar.SEPTEMBER, 1);</span></span><br><span class="line"><span class="comment">                orderInfo.setCardExpireTime(calendar.getTime());</span></span><br><span class="line"><span class="comment">            &#125; else &#123;</span></span><br><span class="line"><span class="comment">                orderInfo.setCardExpireTime(getExpireTime(new Date(), goodInfoVO.getCardExpiredYears()));</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">            orderInfo.setSourceType(OrderSourceTypeEnum.Register.getValue());*/</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*orderInfo.setClientType(orderAddBO.getClientType().getValue());</span></span><br><span class="line"><span class="comment">        orderInfo.setCardYear(goodInfoVO.getCardExpiredYears());</span></span><br><span class="line"><span class="comment">        if(orderAddBO.getProvinceCode()==null||orderAddBO.getProvinceCode()&lt;=0)&#123;</span></span><br><span class="line"><span class="comment">            orderInfo.setProvinceCode(user.getMemberProvinceCode());</span></span><br><span class="line"><span class="comment">        &#125;else &#123;</span></span><br><span class="line"><span class="comment">            orderInfo.setProvinceCode(orderAddBO.getProvinceCode());</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        orderInfo.setMemberType(goodInfoVO.getOldCardType());</span></span><br><span class="line"><span class="comment">        orderInfo.setProductId(orderAddBO.getProductId());</span></span><br><span class="line"><span class="comment">        orderInfo.setUserId(orderAddBO.getUserId());*/</span></span><br><span class="line">    </span><br><span class="line">    	<span class="comment">// 领域服务中不依赖仓储层</span></span><br><span class="line">        <span class="comment">/*if (orderInfo.getId() == null || orderInfo.getId() &lt;= 0) &#123;</span></span><br><span class="line"><span class="comment">            orderInfo.setStatus(OrderStatusEnum.ADD.getValue());</span></span><br><span class="line"><span class="comment">            orderInfo.setOrderNo(new OrderNo(OrderTypeEnum.parseValue(orderInfo.getOrderType()), orderAddBO.getUserId()).getValue());</span></span><br><span class="line"><span class="comment">            orderInfo.setOrderCenterNo(addOrderCenterOrder(orderInfo, goodInfoVO, orderAddBO.getRedirectUrl()));</span></span><br><span class="line"><span class="comment">            orderDomain.insert(orderInfo);</span></span><br><span class="line"><span class="comment">        &#125; else &#123;</span></span><br><span class="line"><span class="comment">            orderInfo.setOrderCenterNo(addOrderCenterOrder(orderInfo, goodInfoVO, orderAddBO.getRedirectUrl()));</span></span><br><span class="line"><span class="comment">            orderDomain.update(orderInfo);</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        <span class="keyword">return</span> orderInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>整理完之后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建订单的核心业务</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> OrderInfo <span class="title">createOrder</span><span class="params">(OrderAddCommand orderAdd)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    	OrderInfo orderInfo = orderAdd.getOrderInfo();</span><br><span class="line">    	<span class="keyword">if</span>(orderInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">            orderInfo = <span class="keyword">new</span> OrderInfo();</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    	GoodInfo goodInfo = orderAdd.getGoodInfo();</span><br><span class="line">        <span class="keyword">if</span> (goodInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> OrderExceptionConstants.PRODUCTNOTEXIST;</span><br><span class="line">        &#125;</span><br><span class="line">        UserInfo userInfo = orderAdd.getUserInfo();</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">boolean</span> isOA = userInfo.isOA();</span><br><span class="line">    </span><br><span class="line">    	<span class="keyword">if</span> (isOA &amp;&amp; !goodInfo.isUpgrade()) &#123;</span><br><span class="line">            OrderUserImport orderUserImport = orderAdd.getOrderUserImport();</span><br><span class="line">            <span class="keyword">if</span> (orderUserImport == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">throw</span> OrderExceptionConstants.USERISNOTOAACCOUNT;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!orderAdd.getProductId().equals(orderUserImport.getProductId())) &#123;</span><br><span class="line">                <span class="keyword">throw</span> OrderExceptionConstants.PRODUCTISERROR;</span><br><span class="line">            &#125;</span><br><span class="line">            orderInfo = createMarket(...);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            orderInfo = createNotMarket(...);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> orderInfo;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="聚合、聚合根-aggregate、aggregate-root"><a href="#聚合、聚合根-aggregate、aggregate-root" class="headerlink" title="聚合、聚合根(aggregate、aggregate root)"></a>聚合、聚合根(aggregate、aggregate root)</h3><p>聚合是由业务和逻辑紧密关联的实体和值对象组成的，是数据修改和持久化的基本单元。</p>
+<blockquote>
+<p>比如，订单是个聚合，订单实体是该聚合的根实体（聚合根），订单号就是附属聚合的值对象。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderNo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 订单名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String orderName;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否为oa订单</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Boolean isOA;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 商品值对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Goods goods;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// etc...</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paid</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        setStatus(OrderStatus.Paid.getValue());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// etc...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Goods</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 商品是否可升级</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Boolean upgrade;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 商品优惠价格</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> BigDecimal promotionPrice;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 商品价格</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> BigDecimal price;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="工厂-factories"><a href="#工厂-factories" class="headerlink" title="工厂(factories)"></a>工厂(factories)</h3><p>领域对象工厂。用于复杂领域对象的创建/重建。重建是指通过repository加载持久化对象后，重建领域对象。</p>
+<blockquote>
+<p>DO与实体间的相互转换</p>
+</blockquote>
+<p>converter/transform</p>
+<ul>
+<li>BeanUtils.copyProperties</li>
+<li>MapStruct</li>
+<li>…</li>
+</ul>
+<h4 id="拓展一点"><a href="#拓展一点" class="headerlink" title="拓展一点"></a>拓展一点</h4><blockquote>
+<p>对象转换主要就2种</p>
+<ol>
+<li><p>getter/setter方法（手动设置）</p>
+<p>优点：效率高</p>
+<p>缺点：硬编码，一大段set，代码丑陋</p>
+</li>
+<li><p>BeanUtils.copyProperties（反射属性赋值）</p>
+<p>优点：便捷</p>
+<p>缺点：效率低、属性赋值不可控</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="MapStruct"><a href="#MapStruct" class="headerlink" title="MapStruct"></a>MapStruct</h4><p>通过编译时的代码生成，字节码里有getter/setter方法，只不过不需要自己写了</p>
+<blockquote>
+<p>原理点：</p>
+<ol>
+<li>java spi</li>
+<li>JSR 269 API</li>
+</ol>
+</blockquote>
+<h3 id="仓储-repositories"><a href="#仓储-repositories" class="headerlink" title="仓储(repositories)"></a>仓储(repositories)</h3><p>资源库是对资源访问的抽象。不局限于数据库、文件、网络存储。接口需要不依赖于具体的数据存储和ORM实现框架</p>
+<p>伪代码如下</p>
+<blockquote>
+<p>接口（领域层只管接口）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OrderRepository</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 从这里也能看出一个好处</span></span><br><span class="line">    <span class="comment">// 1. 以前的写法Order findByOrderNo(String orderNo)</span></span><br><span class="line">    <span class="comment">// 参数有两个，或者多个(没封装成DTO)的时候，那名字可能就很长了，findByOrderNoAndXXX(String orderNo, String xxx)</span></span><br><span class="line">    <span class="comment">// 这时候，有人会想，用find(String orderNo, String xxx)，那如果还有个方法是find(String xxx, String yyy)呢...</span></span><br><span class="line">    <span class="comment">// 2. 避免参数传错，以前的写法当参数都是String类型时，xxx和yyy传反了，编译也没问题，而用对象的形式，就很好的避免了这个问题</span></span><br><span class="line">    <span class="function">Order <span class="title">find</span><span class="params">(OrderNo orderNo)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">save</span><span class="params">(Order order)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实现类（具体实现放在基础层）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderRepositoryImpl</span> <span class="keyword">implements</span> <span class="title">OrderRepository</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowire</span></span><br><span class="line">    <span class="keyword">private</span> OrderMapper orderMapper;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据导入id查询</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Order <span class="title">find</span><span class="params">(OrderNo orderNo)</span> </span>&#123;</span><br><span class="line">        OrderDO orderDO = orderMapper.selectByPrimaryKey(orderNo.getValue());</span><br><span class="line">        <span class="keyword">return</span> OrderConverter.convert(orderDO);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入或更新</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Order order)</span> </span>&#123;</span><br><span class="line">        OrderDO orderDO = OrderConverter.transform(order);</span><br><span class="line">        <span class="keyword">if</span>(orderDO.getId() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            orderMapper.update(orderDO);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            orderMapper.insert(orderDO);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="领域事件-domain-event"><a href="#领域事件-domain-event" class="headerlink" title="领域事件(domain event)"></a>领域事件(domain event)</h3><p>领域事件。领域中产生的一些消息事件，通过事件通知/订阅的方式，可以在性能和解耦层面得到好处。</p>
+<p>具体实现可以用<code>event bus</code></p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h3 id="应用服务-application-service"><a href="#应用服务-application-service" class="headerlink" title="应用服务(application service)"></a>应用服务(application service)</h3><p>与领域服务不同的是，应用服务负责业务流程的编排，但本身不负责任何业务逻辑。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模板方法如下</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DTO <span class="title">method</span><span class="params">(Command command)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//参数检验</span></span><br><span class="line">    check(command);</span><br><span class="line"></span><br><span class="line">    Aggregate aggregate = repository.findAggregate(command);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 简单的行为可以通过聚合根修改</span></span><br><span class="line">    aggregate.operate(command);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 复杂的需要domain service</span></span><br><span class="line">    <span class="comment">// aggregateService.operate(command);</span></span><br><span class="line"></span><br><span class="line">    repository.saveOrUpdate(aggregate);</span><br><span class="line"></span><br><span class="line">    publish(event);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 聚合根转换成DTO</span></span><br><span class="line">    <span class="keyword">return</span> DTOAssembler.to(aggregate);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="CQE对象"><a href="#CQE对象" class="headerlink" title="CQE对象"></a>CQE对象</h4><p>作为入参，</p>
+<p>比如，<code>query</code>和<code>update</code>就算参数一样，但是职责不一样，还是需要分成<code>XXXQuery</code>、<code>XXXCommand</code></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Command</th>
+<th>Query</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>语意</td>
+<td>”希望“能触发的操作</td>
+<td>各种条件的查询</td>
+<td>已经发生过的事情</td>
+</tr>
+<tr>
+<td>读/写</td>
+<td>写</td>
+<td>只读</td>
+<td>通常是写</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>DTO 或 Boolean</td>
+<td>DTO 或 Collection</td>
+<td>Void</td>
+</tr>
+</tbody></table>
+<h5 id="CQE对象的必要性"><a href="#CQE对象的必要性" class="headerlink" title="CQE对象的必要性"></a>CQE对象的必要性</h5><p>举个反例</p>
+<p>根据不同条件查询，实际上功能是同一个，只是条件不一样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;OrderDTO&gt; <span class="title">queryByOrderId</span><span class="params">(Integer orderId)</span></span>;</span><br><span class="line"><span class="function">List&lt;OrderDTO&gt; <span class="title">queryByUserId</span><span class="params">(Long userId)</span></span>;</span><br><span class="line"><span class="function">List&lt;OrderDTO&gt; <span class="title">queryByUserIdWithPage</span><span class="params">(Long userId, <span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>emmm…要是说用Map，语义化就太差了，除了写代码的人，谁都不知道Map里会有啥</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;OrderDTO&gt; <span class="title">query</span><span class="params">(OrderQuery query)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderQuery</span> <span class="keyword">extends</span> <span class="title">PageQuery</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer orderId;</span><br><span class="line">    <span class="keyword">private</span> Long userId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="DTO对象"><a href="#DTO对象" class="headerlink" title="DTO对象"></a>DTO对象</h4><p>作为出参</p>
+<h1 id="战略设计"><a href="#战略设计" class="headerlink" title="战略设计"></a>战略设计</h1><h2 id="领域和子域"><a href="#领域和子域" class="headerlink" title="领域和子域"></a>领域和子域</h2><p>既然是领域驱动设计，那么我们主要的关注点理所当然应该放在如何设计领域模型上，以及对领域模型的划分。 </p>
+<p>领域并不是多么高深的概念，比如，一个保险公司的领域中包含了保险单、理赔和再保险等概念；一个电商网站的领域包含了产品名录、订单、发票、库存和物流的概念。这里，我主要讲讲对领域的划分，即将一个大的领域划分成若干个子域。 </p>
+<p>在日常开发中，我们通常会将一个大型的软件系统拆分成若干个子系统。</p>
+<p>这种 划分有可能是基于架构方面的考虑，也有可能是基于基础设施的。但是在DDD中，我们对系统的划分是基于领域的，也即是基于业务的。 </p>
+<p>于是，问题也来了：首先，哪些概念应该建模在哪些子系统里面？我们可能会发现一个领域概念建模在子系统A中是可以的，而建模在子系统B中似乎也合乎情理。第二个问题是，各个子系统之间的应该如何集成？有人可能会说，这不简单得就像客户端调用服务端那么简单吗？问题在于，两个系统之间的集成涉及到基础设施和不同领域概念在两个系统之间的翻译，稍不注意，这些概念就会对我们精心创建好的领域模型造成污染。</p>
+<h2 id="限界上下文"><a href="#限界上下文" class="headerlink" title="限界上下文"></a>限界上下文</h2><p>在一个领域/子域中，我们会创建一个概念上的领域边界，在这个边界中，任何领域对象都只表示特定于该边界内部的确切含义。这样边界便称为限界上下文。限界上下文和领域具有一对一的关系。</p>
+<p>举个例子，同样是一本书，在出版阶段和出售阶段所表达的概念是不同的，出版阶段我们主要关注的是出版日期，字数，出版社和印刷厂等概念，而在出售阶段我们则主要关心价格，物流和发票等概念。我们应该怎么办呢，将所有这些概念放在单个Book对象中吗？这不是DDD的做法，DDD有限界上下文将这两个不同的概念区分开来。</p>
+<p>从物理上讲，一个限界上下文最终可以是一个DLL(.NET)文件或者JAR(Java)文件，甚至可以是一个命名空间（比如Java的package）中的所有对象。但是，技术本身并不应该用来界分限界上下文。</p>
+<p>将一个限界上下文中的所有概念，包括名词、动词和形容词全部集中在一起，我们便为该限界上下文创建了一套通用语言。通用语言是一个团队所有成员交流时所使用的语言，业务分析人员、编码人员和测试人员都应该直接通过通用语言进行交流。</p>
+<p>对于上文中提到的各个子域之间的集成问题，其实也是限界上下文之间的集成问题。在集成时，我们主要关心的是领域模型和集成手段之间的关系。比如需要与一个REST资源集成，你需要提供基础设施（比如Spring 中的RestTemplate），但是这些设施并不是你核心领域模型的一部分，你应该怎么办呢？答案是防腐层，该层负责与外部服务提供方打交道，还负责将外部概念翻译成自己的核心领域能够理解的概念。当然，防腐层只是限界上下文之间众多集成方式的一种，另外还有共享内核、开放主机服务等，具体细节请参考《实现领域驱动设计》原书。限界上下文之间的集成关系也可以理解为是领域概念在不同上下文之间的映射关系，因此，限界上下文之间的集成也称为上下文映射图。</p>
+<h2 id="架构风格"><a href="#架构风格" class="headerlink" title="架构风格"></a>架构风格</h2><p>DDD并不要求采用特定的架构风格，因为它是对架构中立的。你可以采用传统的三层式架构，也可以采用REST架构和事件驱动架构等。但是在《实现领域驱动设计》中，作者比较推崇事件驱动架构和六边形（Hexagonal）架构。</p>
+<h1 id="基于DDD的实践"><a href="#基于DDD的实践" class="headerlink" title="基于DDD的实践"></a>基于DDD的实践</h1><h2 id="blog"><a href="#blog" class="headerlink" title="blog"></a>blog</h2><h3 id="淘宝"><a href="#淘宝" class="headerlink" title="淘宝"></a>淘宝</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNDEwNjk5OQ==&mid=2650403892&idx=1&sn=a91fa477392e80f9420a8ca4d26bcace&chksm=83953c2cb4e2b53a6af3b5a82c3b7d7ed932bfe83f59877a935445ae89edd0ff4ee1c4e82fba&scene=21#wechat_redirect">DDD 系列- Domain Primitive</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNDEwNjk5OQ==&mid=2650404060&idx=1&sn=cacf40d19528f6c2d9fd165151d6e8b4&chksm=83953cc4b4e2b5d2bd4426e0d2103f2e95715b682f3b7ff333dbb123eaa79d3e5ad24f64beac&scene=21#wechat_redirect">DDD系列 第二弹 - 应用架构</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNDEwNjk5OQ==&mid=2650406692&idx=1&sn=4a4ac4168299d8ca1905a4f457ae4c59&chksm=8395373cb4e2be2a2d066a5ea4e631fd6270e969ce61883b488f61c1ce33fbc0b362ec9cbf7b&scene=21#wechat_redirect">DDD系列 第三讲 - Repository模式</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNDEwNjk5OQ==&mid=2650414919&idx=1&sn=0ad1df1a1b0e2488f7faa21008fdbdd0&chksm=8396d75fb4e15e49341b07022780dcb8dca66a0efb7f129d4de86a5ef5d8a890f6e0d2fd6432&scene=21#wechat_redirect">DDD系列第四讲：领域层设计规范</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNDEwNjk5OQ==&mid=2650427571&idx=1&sn=bfc3c1c6f189965a1a4c7f3918012405&chksm=839698abb4e111bd5e02344f27d86c928ccfe4d3da1649817b02924c07f681fc1a7ea818f442&scene=178&cur_album_id=1452661944472977409#rd">DDD系列第五讲：聊聊如何避免写流水账代码</a></p>
+<h3 id="盒马技术团队"><a href="#盒马技术团队" class="headerlink" title="盒马技术团队"></a>盒马技术团队</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/42565478">领域驱动设计，盒马技术团队这么做</a></p>
+<h3 id="vivo"><a href="#vivo" class="headerlink" title="vivo"></a>vivo</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gk-Hb84Dt7JqBRVkMqM7Eg">领域驱动设计(DDD)实践之路(一)</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4NjY4MTU5Nw==&mid=2247486689&idx=1&sn=3d73f1a466aa8270db39a84244df3ac5&chksm=ebd87c73dcaff5655494060e1afe52256627a996b993329fcf7fc9341457d39afab7bfa9e3e7&scene=21#wechat_redirect">领域驱动设计(DDD)实践之路(二)：事件驱动与CQRS</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4NjY4MTU5Nw==&mid=2247486850&idx=1&sn=442d44af822b9acf860f4345d538a52c&chksm=ebd87d10dcaff40683ab04ba02043b135d47020821aa9261ab48b270d3f6d1b42e3087a84049&scene=21#wechat_redirect">领域驱动设计(DDD)实践之路(三)：如何设计聚合</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4NjY4MTU5Nw==&mid=2247488642&idx=2&sn=6418920c844252f992d0421ce60e6311&chksm=ebd86410dcafed0633bdb9998a3bb1c7822ee4a048f18abe601cabb576e6bff9ceed14c38cc7&scene=178&cur_album_id=1500542612812955651#rd">领域驱动设计(DDD)实践之路(四)：领域驱动在微服务设计中的应用</a></p>
+<h3 id="百度爱番番"><a href="#百度爱番番" class="headerlink" title="百度爱番番"></a>百度爱番番</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg5MjU0NTI5OQ==&mid=2247491684&idx=1&sn=58ab7fa7fe2f13c66d69b57fd95733e3&chksm=c03ed018f749590ec20396bad899c4f847d19ad23b59a86c1728dd50e385ca2a8a3a2aeb9bd0&token=73278986&lang=zh_CN#rd">领域驱动设计（DDD）在百度爱番番的实践</a></p>
+<h2 id="ddd-framework"><a href="#ddd-framework" class="headerlink" title="ddd-framework"></a>ddd-framework</h2><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/COLA">COLA框架 - 阿里</a></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>小丑竟是我自己？小弟在各位大佬面前献丑了</p>
+<p><img src="https://blog.jarjune.com/pic/%E6%B5%85%E6%9E%90%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1-%E5%88%86%E4%BA%AB%E4%BC%9A/6cd4f77ca689453d99fbec1135293b3c.png" alt="img"></p>
+<p>emmm…要被海龙按在地上摩擦了</p>
+<p>分享人：铁铁</p>
+<p>日期：2021/05/26</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/12/redis%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/14/%E3%80%90%E6%97%A5%E5%B8%B8%E5%BD%92%E6%A1%A3%E3%80%91%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%B3%BB%E5%88%97/" rel="next" title="【日常归档】消息中间件系列">
+      【日常归档】消息中间件系列 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%86%E4%BA%ABDDD%E8%BF%99%E4%B8%AA%E7%90%86%E8%AE%BA%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么要分享DDD这个理论？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">目的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8DDD"><span class="nav-number">2.1.</span> <span class="nav-text">了解为什么要用DDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DDD%E4%B8%8E%E4%BC%A0%E7%BB%9F%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84%E7%9A%84%E5%B7%AE%E5%88%AB%E4%B9%8B%E5%A4%84%EF%BC%9F"><span class="nav-number">2.1.1.</span> <span class="nav-text">DDD与传统三层架构的差别之处？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">传统三层架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDD"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">DDD</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8DDD"><span class="nav-number">2.2.</span> <span class="nav-text">更好的在项目中使用DDD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E5%B1%82"><span class="nav-number">3.1.</span> <span class="nav-text">领域层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%BC%E5%AF%B9%E8%B1%A1-value-object"><span class="nav-number">3.1.1.</span> <span class="nav-text">值对象(value object)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93-entity"><span class="nav-number">3.1.2.</span> <span class="nav-text">实体(entity)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%AB%E8%A1%80%E6%A8%A1%E5%9E%8Bvs%E5%85%85%E8%A1%80%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">贫血模型vs充血模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1-domain-service"><span class="nav-number">3.1.3.</span> <span class="nav-text">领域服务(domain service)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E3%80%81%E8%81%9A%E5%90%88%E6%A0%B9-aggregate%E3%80%81aggregate-root"><span class="nav-number">3.1.4.</span> <span class="nav-text">聚合、聚合根(aggregate、aggregate root)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82-factories"><span class="nav-number">3.1.5.</span> <span class="nav-text">工厂(factories)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%93%E5%B1%95%E4%B8%80%E7%82%B9"><span class="nav-number">3.1.5.1.</span> <span class="nav-text">拓展一点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MapStruct"><span class="nav-number">3.1.5.2.</span> <span class="nav-text">MapStruct</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%82%A8-repositories"><span class="nav-number">3.1.6.</span> <span class="nav-text">仓储(repositories)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E4%BA%8B%E4%BB%B6-domain-event"><span class="nav-number">3.1.7.</span> <span class="nav-text">领域事件(domain event)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">3.2.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1-application-service"><span class="nav-number">3.2.1.</span> <span class="nav-text">应用服务(application service)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CQE%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">CQE对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CQE%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="nav-number">3.2.1.1.1.</span> <span class="nav-text">CQE对象的必要性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DTO%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">DTO对象</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%98%E7%95%A5%E8%AE%BE%E8%AE%A1"><span class="nav-number">4.</span> <span class="nav-text">战略设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E5%92%8C%E5%AD%90%E5%9F%9F"><span class="nav-number">4.1.</span> <span class="nav-text">领域和子域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%90%E7%95%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">4.2.</span> <span class="nav-text">限界上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC"><span class="nav-number">4.3.</span> <span class="nav-text">架构风格</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EDDD%E7%9A%84%E5%AE%9E%E8%B7%B5"><span class="nav-number">5.</span> <span class="nav-text">基于DDD的实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#blog"><span class="nav-number">5.1.</span> <span class="nav-text">blog</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%98%E5%AE%9D"><span class="nav-number">5.1.1.</span> <span class="nav-text">淘宝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%92%E9%A9%AC%E6%8A%80%E6%9C%AF%E5%9B%A2%E9%98%9F"><span class="nav-number">5.1.2.</span> <span class="nav-text">盒马技术团队</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vivo"><span class="nav-number">5.1.3.</span> <span class="nav-text">vivo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E7%88%B1%E7%95%AA%E7%95%AA"><span class="nav-number">5.1.4.</span> <span class="nav-text">百度爱番番</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ddd-framework"><span class="nav-number">5.2.</span> <span class="nav-text">ddd-framework</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jarjune</p>
+  <div class="site-description" itemprop="description">java的前端</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jarjune</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

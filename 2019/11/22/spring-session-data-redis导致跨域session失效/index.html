@@ -1,37 +1,409 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.jarjune.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="环境前端：  vue全家桶 axios  后端：  springboot 2.1.9.RELEASE spring-boot-starter-data-redis spring-session-data-redis  根据以往的经验来看，无非就以下几种情况 设置跨域访问 前端设置携带cookie1234axios.get(&amp;#x27;http:&#x2F;&#x2F;xxxx&#x2F;&amp;#x27;, &amp;#123;	&#x2F;&#x2F; 允许">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring-session-data-redis导致跨域session失效">
+<meta property="og:url" content="https://blog.jarjune.com/2019/11/22/spring-session-data-redis%E5%AF%BC%E8%87%B4%E8%B7%A8%E5%9F%9Fsession%E5%A4%B1%E6%95%88/index.html">
+<meta property="og:site_name" content="前端的java">
+<meta property="og:description" content="环境前端：  vue全家桶 axios  后端：  springboot 2.1.9.RELEASE spring-boot-starter-data-redis spring-session-data-redis  根据以往的经验来看，无非就以下几种情况 设置跨域访问 前端设置携带cookie1234axios.get(&amp;#x27;http:&#x2F;&#x2F;xxxx&#x2F;&amp;#x27;, &amp;#123;	&#x2F;&#x2F; 允许">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-22T07:18:10.000Z">
+<meta property="article:modified_time" content="2021-05-12T12:49:55.296Z">
+<meta property="article:author" content="jarjune">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.jarjune.com/2019/11/22/spring-session-data-redis%E5%AF%BC%E8%87%B4%E8%B7%A8%E5%9F%9Fsession%E5%A4%B1%E6%95%88/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>spring-session-data-redis导致跨域session失效 | 前端的java</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">前端的java</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2019/11/22/spring-session-data-redis%E5%AF%BC%E8%87%B4%E8%B7%A8%E5%9F%9Fsession%E5%A4%B1%E6%95%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spring-session-data-redis导致跨域session失效
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-22 15:18:10" itemprop="dateCreated datePublished" datetime="2019-11-22T15:18:10+08:00">2019-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-12 20:49:55" itemprop="dateModified" datetime="2021-05-12T20:49:55+08:00">2021-05-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>前端：</p>
+<ul>
+<li>vue全家桶</li>
+<li>axios</li>
+</ul>
+<p>后端：</p>
+<ul>
+<li>springboot 2.1.9.RELEASE</li>
+<li>spring-boot-starter-data-redis</li>
+<li>spring-session-data-redis</li>
+</ul>
+<p>根据以往的经验来看，无非就以下几种情况</p>
+<h1 id="设置跨域访问"><a href="#设置跨域访问" class="headerlink" title="设置跨域访问"></a>设置跨域访问</h1><ol>
+<li>前端设置携带cookie<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">axios.get(<span class="string">&#x27;http://xxxx/&#x27;</span>, &#123;</span><br><span class="line">	<span class="comment">// 允许携带cookie</span></span><br><span class="line">	<span class="attr">withCredentials</span>: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>后端设置CORS<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, request.getHeader(<span class="string">&quot;Origin&quot;</span>));</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="string">&quot;Origin, X-Requested-With, Content-Type, Accept, If-Modified-Since&quot;</span>);</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="string">&quot;POST, GET, OPTIONS, DELETE&quot;</span>);</span><br><span class="line">response.setHeader(<span class="string">&quot;Access-Control-Max-Age&quot;</span>, <span class="string">&quot;3600&quot;</span>);</span><br><span class="line">response.addHeader(<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h1><h2 id="设置vue-config-js"><a href="#设置vue-config-js" class="headerlink" title="设置vue.config.js"></a>设置vue.config.js</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	<span class="attr">publicPath</span>: <span class="string">&#x27;./&#x27;</span>,</span><br><span class="line">	<span class="attr">devServer</span>: &#123;</span><br><span class="line">		<span class="attr">proxy</span>: &#123;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 设置代理</span></span><br><span class="line">			<span class="string">&#x27;/innerService&#x27;</span>: &#123;</span><br><span class="line">				<span class="attr">target</span>: <span class="string">&#x27;http://192.168.30.248:8081&#x27;</span>,</span><br><span class="line">				<span class="attr">changeOrigin</span>: <span class="literal">true</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location /innerService &#123;</span><br><span class="line">	proxy_pass   http://192.168.30.248:8081/;</span><br><span class="line">	proxy_cookie_path / /;</span><br><span class="line">	proxy_cookie_path / /;</span><br><span class="line">	proxy_set_header   Host             $host;</span><br><span class="line">	proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">	proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">	proxy_set_header   X-Forwarded-Proto $scheme;</span><br><span class="line">	index  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="这次的问题"><a href="#这次的问题" class="headerlink" title="这次的问题"></a>这次的问题</h1><p>但是这次，以前的方法都试过之后，还是无效，怀疑自己到底哪里写错了。<br>之后通过对比以前的项目，发现<code>set-cookie</code>里多了一个参数。<br>set-cookie: SESSION=ODdmZjM1ZDAtNTNkZS00YTJjLThkOTAtNDA5OWNjNzg4ZWY4; Path=/; HttpOnly; SameSite=Lax</p>
+<p>没错，就是多了<strong>SameSite=Lax</strong></p>
+<p>于是就带着这个参数去搜索，</p>
+<p><strong>SameSite</strong></p>
+<blockquote>
+<p>Cookie 的SameSite属性用来限制第三方 Cookie，从而减少安全风险。也就是防止CSRF攻击<br>参考 <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html">http://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html</a></p>
+</blockquote>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>覆盖默认<code>CookieSerializer</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CookieSerializer <span class="title">httpSessionIdResolver</span><span class="params">()</span></span>&#123;</span><br><span class="line">	DefaultCookieSerializer cookieSerializer = <span class="keyword">new</span> DefaultCookieSerializer();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 源码默认为Lax</span></span><br><span class="line">	<span class="comment">// private String sameSite = &quot;Lax&quot;;</span></span><br><span class="line">	cookieSerializer.setSameSite(<span class="keyword">null</span>);</span><br><span class="line">	<span class="keyword">return</span> cookieSerializer;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/08/spring%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-DefaultListableBeanFactory/" rel="prev" title="spring源码解析-DefaultListableBeanFactory">
+      <i class="fa fa-chevron-left"></i> spring源码解析-DefaultListableBeanFactory
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/02/ThreadLocal%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="next" title="ThreadLocal源码分析">
+      ThreadLocal源码分析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE"><span class="nav-number">2.</span> <span class="nav-text">设置跨域访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEvue-config-js"><span class="nav-number">3.1.</span> <span class="nav-text">设置vue.config.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx"><span class="nav-number">3.2.</span> <span class="nav-text">nginx</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%99%E6%AC%A1%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">这次的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jarjune</p>
+  <div class="site-description" itemprop="description">java的前端</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jarjune</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

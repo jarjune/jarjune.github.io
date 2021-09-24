@@ -1,23 +1,586 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.jarjune.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+  <meta name="description" content="java的前端">
+<meta property="og:type" content="website">
+<meta property="og:title" content="前端的java">
+<meta property="og:url" content="https://blog.jarjune.com/page/6/index.html">
+<meta property="og:site_name" content="前端的java">
+<meta property="og:description" content="java的前端">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="jarjune">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.jarjune.com/page/6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>前端的java</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">前端的java</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2017/11/25/%E8%AE%B0%E4%B8%80%E6%AC%A1sql%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94left-join%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/25/%E8%AE%B0%E4%B8%80%E6%AC%A1sql%E4%BC%98%E5%8C%96%E2%80%94%E2%80%94left-join%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">记一次sql优化——left join不走索引问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-25 11:56:54" itemprop="dateCreated datePublished" datetime="2017-11-25T11:56:54+08:00">2017-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-20 10:55:52" itemprop="dateModified" datetime="2021-05-20T10:55:52+08:00">2021-05-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="sql一执行就卡住，然后就…杀进程了"><a href="#sql一执行就卡住，然后就…杀进程了" class="headerlink" title="sql一执行就卡住，然后就…杀进程了"></a>sql一执行就卡住，然后就…杀进程了</h1><p>看了一下表的大小<img src="https://blog.jarjune.com/pic/%E8%A1%A81.png"><img src="https://blog.jarjune.com/pic/%E8%A1%A82.png"><br>第一反应就是加索引，然后explain看了一下走什么索引了，结果很尴尬，三个表，只走了一个索引…一群人在那纠结为毛走不了索引。<br>无意间发现有个表的字符编码是gbk..另外两个都是utf8..网上查了一番，才发现当表的<font color=red><strong>编码</strong></font>不一致的时候left join走不了索引…</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2017/11/12/target-densitydpi-device-dpi%E4%BC%9A%E4%BD%BF%E5%85%B6%E4%BB%96ui%E6%8F%92%E4%BB%B6%E5%B8%83%E5%B1%80%E5%8F%98%E5%B0%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/12/target-densitydpi-device-dpi%E4%BC%9A%E4%BD%BF%E5%85%B6%E4%BB%96ui%E6%8F%92%E4%BB%B6%E5%B8%83%E5%B1%80%E5%8F%98%E5%B0%8F/" class="post-title-link" itemprop="url">target-densitydpi=device-dpi会使其他ui插件布局变小</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-12 12:48:20" itemprop="dateCreated datePublished" datetime="2017-11-12T12:48:20+08:00">2017-11-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-12 20:49:55" itemprop="dateModified" datetime="2021-05-12T20:49:55+08:00">2021-05-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="target-densitydpi-device-dpi会使其他ui插件布局变小"><a href="#target-densitydpi-device-dpi会使其他ui插件布局变小" class="headerlink" title="target-densitydpi=device-dpi会使其他ui插件布局变小"></a>target-densitydpi=device-dpi会使其他ui插件布局变小</h2><blockquote>
+<p>东哥说：不用rem了，把meta改成这样<code>&lt;meta name=&quot;viewport&quot; content=&quot;width=720, user-scalable=no, target-densitydpi=device-dpi&quot;&gt;</code>就可以直接上px…</p>
+</blockquote>
+<p>这句<code>target-densitydpi=device-dpi</code>是什么意思呢？<br><code>target-densitydpi</code>这个私有属性，它表示目标设备的密度等级，作用是决定css中的1px代表多少物理像素</p>
+<p><code>target-densitydpi</code>值可以为一个数值或 <code>high-dpi</code>、<code>medium-dpi</code>、<code>low-dpi</code>、 <code>device-dpi</code>这几个字符串中的一个</p>
+<p>当<code>target-densitydpi=device-dpi</code>时， css中的1px会等于物理像素中的1px。<br>好像已经决定要废弃<code>target-densitydpi </code>这个属性了，尽量避免使用这个属性。</p>
+<p>当你不在项目中用一些UI插件的时候，它显示的没问题，的确没有使用rem的必要。</p>
+<p>大部分手机端UI插件都是根据手机屏幕来展示它的大小，这时候，坑就出现了。</p>
+<h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子~"></a>举个栗子~</h3><p>iphone6屏幕大小是<code>375*667</code>，当使用了<code>target-densitydpi=device-dpi</code>,而<code>width=720</code>时，也就是说当UI插件自认为是用了满宽度(375)，实际上显示的是屏幕的<code>（375/720）≈ 52%</code>。</p>
+<h3 id="px转rem片段"><a href="#px转rem片段" class="headerlink" title="px转rem片段"></a>px转rem片段</h3><p>笔者当时的解决方案是，把px转回rem，但是那么多的css，每个px都手动转，想想头都大。</p>
+<p>然后，第一时间，想到用正则表达式啊。<br>直接上代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pxCode = <span class="string">&quot;&quot;</span>; <span class="comment">// 一堆px单位的css代码</span></span><br><span class="line"><span class="keyword">var</span> remCode = cssCode.replace(<span class="regexp">/([0-9]*?\.)?[0-9]+px/g</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (res.split(<span class="string">&#x27;px&#x27;</span>)[<span class="number">0</span>]/<span class="number">100</span>) + <span class="string">&#x27;rem&#x27;</span></span><br><span class="line">		&#125;); <span class="comment">// 一堆rem单位的css代码</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="px转rem小工具"><a href="#px转rem小工具" class="headerlink" title="px转rem小工具"></a>px转rem小工具</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">*&#123; <span class="attribute">margin</span>: <span class="number">0</span>; <span class="attribute">padding</span>: <span class="number">0</span>; &#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">html</span>,<span class="selector-tag">body</span>&#123; <span class="attribute">width</span>: <span class="number">100%</span>; <span class="attribute">height</span>: <span class="number">100%</span>; &#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.left</span>&#123; <span class="attribute">float</span>: left; &#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.right</span>&#123; <span class="attribute">float</span>: right; &#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.item</span>&#123; <span class="attribute">width</span>: <span class="number">48%</span>; <span class="attribute">height</span>: <span class="number">90%</span>; <span class="attribute">border</span>: none; <span class="attribute">position</span>: relative; <span class="attribute">top</span>: <span class="number">5%</span>; <span class="attribute">left</span>: <span class="number">0</span>; &#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.item</span> <span class="selector-tag">textarea</span>&#123; <span class="attribute">width</span>: <span class="number">100%</span>; <span class="attribute">height</span>: <span class="number">100%</span>; <span class="attribute">outline</span>: none; <span class="attribute">resize</span>: none; &#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item left&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">&quot;px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item right&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">&quot;rem&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">	$(<span class="string">&#x27;#px&#x27;</span>).keyup(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> px = $(<span class="built_in">this</span>).val();</span></span><br><span class="line"><span class="javascript">		<span class="keyword">var</span> rem = px.replace(<span class="regexp">/([0-9]*?\.)?[0-9]+px/g</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="keyword">return</span> (res.split(<span class="string">&#x27;px&#x27;</span>)[<span class="number">0</span>]/<span class="number">100</span>)+<span class="string">&#x27;rem&#x27;</span></span></span><br><span class="line"><span class="javascript">		&#125;)</span></span><br><span class="line"><span class="javascript">		$(<span class="string">&#x27;#rem&#x27;</span>).val(rem);</span></span><br><span class="line"><span class="javascript">	&#125;)</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2017/11/09/css%E5%9D%91%E4%BA%86%E6%88%91%E4%B8%80%E4%B8%8B%E4%B8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/09/css%E5%9D%91%E4%BA%86%E6%88%91%E4%B8%80%E4%B8%8B%E4%B8%8B/" class="post-title-link" itemprop="url">css坑了我一下下</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-09 19:36:08" itemprop="dateCreated datePublished" datetime="2017-11-09T19:36:08+08:00">2017-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-12 20:49:55" itemprop="dateModified" datetime="2021-05-12T20:49:55+08:00">2021-05-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="文字上下有间隙该怎么解决"><a href="#文字上下有间隙该怎么解决" class="headerlink" title="文字上下有间隙该怎么解决"></a>文字上下有间隙该怎么解决</h2><p>一次很搞笑的真实经历。</p>
+<blockquote>
+<p>我：文字上下有间隙该怎么解决？<br>大佬A：什么意思？<br>大佬B：字体的原因吧。<br>大佬B：MD 谁看那么细。<br>我：跟别的图片对不齐。<br>真·大佬：这个我知道。<br>真·大佬：妈的，这个跟浏览器有关系。<br>真·大佬：chrome就是这个屌样。<br>真·大佬：你要搜一个文件，重置各浏览器默认的文件。<br>真·大佬：就是没有设置宽高，自适应出来的有空隙。<br>真·大佬：外侧的框没有紧贴文字。<br>真·大佬：你们看，框的高不是字体大小，所以有一段空隙。。换个浏览器，就没有这个空隙。。其实就是浏览器差异导致的。。要放一个重置浏览器差异的文件。<br>真·大佬：就可以解决了。<br>真·大佬：就是类似于，重置标签的css文件没放。<br>真·大佬：类似于reset.css。<br>真·大佬：我记得应该是normal.css好像，有点忘记了。。<br>大佬A：line-height设置成1不就没了？<br>大佬A：默认值是1.2，所以会有啊<br>一片卧槽声后…<br>真·大佬：消息撤不回了。<br>真·大佬：刷屏，刷屏。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。<br>真·大佬：。  </p>
+</blockquote>
+<p>so…line-height的默认值是**<font color="red">1.2</font>**…尴尬了…</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.jarjune.com/2017/11/06/js%E9%BB%91%E9%AD%94%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jarjune">
+      <meta itemprop="description" content="java的前端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端的java">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/06/js%E9%BB%91%E9%AD%94%E6%B3%95/" class="post-title-link" itemprop="url">js黑魔法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-06 15:49:10" itemprop="dateCreated datePublished" datetime="2017-11-06T15:49:10+08:00">2017-11-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-12 20:49:55" itemprop="dateModified" datetime="2021-05-12T20:49:55+08:00">2021-05-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="清空一个数组"><a href="#清空一个数组" class="headerlink" title="清空一个数组"></a>清空一个数组</h2><p>一直以来，清空一个数组都是<code>var i = [1,2,3]; i = [];</code>,习惯成自然，被自己坑了。</p>
+<blockquote>
+<p>举个例子</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">val</span>: i&#125;;</span><br><span class="line"><span class="keyword">var</span> i = []; <span class="comment">// 当i = []时，i的地址就被改变了，所以obj.val一直是原来那个数组。</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123;val:[1,2,3]&#125;</span></span><br></pre></td></tr></table></figure>
+<p>然后，怎么方便清空数组，并且不会改变地址呢…</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">val</span>: i&#125;;</span><br><span class="line">i.length = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123;val:[]&#125;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jarjune</p>
+  <div class="site-description" itemprop="description">java的前端</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jarjune</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
